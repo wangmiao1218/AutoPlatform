@@ -16,7 +16,6 @@ import org.apache.log4j.Logger;
 public class MysqlJDBCUtils {
 	private static Logger logger = Logger.getLogger(MysqlJDBCUtils.class); 
 	
-	// 避免中文乱码要指定useUnicode和characterEncoding
 	private static final String url = "jdbc:mysql://10.0.2.238:9003/gennlife_tjzl?"
 			+ "user=gennlife_tjzl_user&password=@Gennlife_tjzl2015&useUnicode=true&characterEncoding=UTF8";
 	
@@ -32,7 +31,7 @@ public class MysqlJDBCUtils {
 		Connection conn = null;
 		ResultSet rs = null;
 		try {
-			Class.forName("com.mysql.jdbc.Driver");// 动态加载mysql驱动
+			Class.forName("com.mysql.jdbc.Driver");
 			// or:
 			// com.mysql.jdbc.Driver driver = new com.mysql.jdbc.Driver();
 			// or：

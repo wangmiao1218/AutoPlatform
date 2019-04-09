@@ -21,7 +21,6 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
 
 import com.alibaba.fastjson.JSONObject;
-import com.gennlife.autoplatform.bean.CrfTemplateAnzhenXinXueguan;
 
 /**
  * @Description: 字符串及集合的处理的工具集
@@ -380,124 +379,6 @@ public class ListAndStringUtils {
 		return diff;
 	}
 
-	/**
-	 * @Title: isLinkageFieldGroupLinkage
-	 * @Description: 判断联动的组是否为组联动，是返回true，否返回false
-	 * @param: @param crfList
-	 * @param: @return :
-	 * @return: Boolean
-	 * @throws
-	 */
-	public static Boolean isCRFListLGroupLinkage(
-			List<CrfTemplateAnzhenXinXueguan> crfList) {
-		Boolean status = false;
-		for (int i = 0; i < crfList.size(); i++) {
-			// 组联动(组名称非空且联动非空)
-			if ((crfList.get(i).getThirdGroup() != null
-					&& crfList.get(i).getDisplayMainKey() != null
-					&& !"".equals(crfList.get(i).getThirdGroup().trim()) && !""
-						.equals(crfList.get(i).getDisplayMainKey().trim()))
-					|| (crfList.get(i).getSecondGroup() != null
-							&& crfList.get(i).getDisplayMainKey() != null
-							&& !"".equals(crfList.get(i).getSecondGroup()
-									.trim()) && !"".equals(crfList.get(i)
-							.getDisplayMainKey().trim()))) {
-
-				status = true;
-				break;
-			}
-		}
-		return status;
-	}
-
-	/**
-	 * @Title: searchCrfListReturnAllLinkageFieldsList
-	 * @Description: 
-	 *               以第一个firstCrf开始，判断其是否联动，若联动则在crfList中找到对应的联动字段（逆序输出），不存在直接返回本身
-	 * @param: @param list
-	 * @param: @param firstCrf ：一般以list中的get（0）开始查找
-	 * @param: @param returnlist
-	 * @param: @return :若联动则在crfList中找到对应的联动字段（逆序输出），不存在直接返回本身
-	 * @return: List<CrfTemplateAnzhenXinXueguan>
-	 * @throws 例如
-	 *             : CrfTemplateAnzhenXinXueguan [id=7, baseName=个人病史,
-	 *             secondGroup=null, thirdGroup=, chineseName=其他（不取药原因注明）,
-	 *             englishName=OTHER_NON_DRUG_REASONS,
-	 *             idXpath=u-crf-HYPERTENSION_OTHER_NON_DRUG_REASONS,
-	 *             displayMainKey
-	 *             =schema.patient_info.PERSONAL_ILLNESS_HISTORY.HYPERTENSION
-	 *             .REASONS_FOR_NOT_TAKING_MEDICINE, displayMainValue=其他,
-	 *             dataType=string, variableType=字符串, rangeData=,
-	 *             inputValue=null, selectOutputValue=null, selectResult=null,
-	 *             linkageResult=大于三层，请人工测试] CrfTemplateAnzhenXinXueguan [id=6,
-	 *             baseName=个人病史, secondGroup=null, thirdGroup=,
-	 *             chineseName=不取药原因,
-	 *             englishName=REASONS_FOR_NOT_TAKING_MEDICINE,
-	 *             idXpath=.//*[@id=
-	 *             'u-crf-HYPERTENSION']/div[3]/div[6]/div/div/button,
-	 *             displayMainKey
-	 *             =schema.patient_info.PERSONAL_ILLNESS_HISTORY.HYPERTENSION
-	 *             .PRESCRIBE_MEDICINE_REGULARLY, displayMainValue=否,
-	 *             dataType=string, variableType=多选,
-	 *             rangeData=药费贵;挂号难;距离远;行动不便;没时间;自己认为不用服药;其他, inputValue=null,
-	 *             selectOutputValue=null, selectResult=null, linkageResult=no]
-	 *             CrfTemplateAnzhenXinXueguan [id=5, baseName=个人病史,
-	 *             secondGroup=null, thirdGroup=, chineseName=是否定期开药/买药,
-	 *             englishName=PRESCRIBE_MEDICINE_REGULARLY,
-	 *             idXpath=u-crf-HYPERTENSION_PRESCRIBE_MEDICINE_REGULARLY,
-	 *             displayMainKey
-	 *             =schema.patient_info.PERSONAL_ILLNESS_HISTORY.HYPERTENSION
-	 *             .HAS_HYPERTENSION, displayMainValue=有, dataType=string,
-	 *             variableType=枚举型, rangeData=是;否, inputValue=null,
-	 *             selectOutputValue=null, selectResult=null,
-	 *             linkageResult=pass] CrfTemplateAnzhenXinXueguan [id=1,
-	 *             baseName=个人病史, secondGroup=null, thirdGroup=,
-	 *             chineseName=有无高血压病, englishName=HAS_HYPERTENSION,
-	 *             idXpath=u-crf-HYPERTENSION_HAS_HYPERTENSION, displayMainKey=,
-	 *             displayMainValue=, dataType=string, variableType=枚举型,
-	 *             rangeData=有;无, inputValue=null, selectOutputValue=null,
-	 *             selectResult=null, linkageResult=]
-	 */
-	public static List<CrfTemplateAnzhenXinXueguan> searchCrfListReturnAllLinkageFieldsList(
-			List<CrfTemplateAnzhenXinXueguan> crfList,
-			CrfTemplateAnzhenXinXueguan firstCrf,
-			List<CrfTemplateAnzhenXinXueguan> returnlist) {
-		if (firstCrf.getDisplayMainKey() != null
-				&& !"".equals(firstCrf.getDisplayMainKey())
-				&& !" ".equals(firstCrf.getDisplayMainKey())) {
-			returnlist.add(firstCrf);
-			String linkageEnglishName1 = ListAndStringUtils
-					.displayMainKeyToEnglishName(firstCrf.getDisplayMainKey());
-			CrfTemplateAnzhenXinXueguan secondCrf = ListAndStringUtils
-					.searchCrfListReturnOneCrf(crfList, linkageEnglishName1);
-			searchCrfListReturnAllLinkageFieldsList(crfList, secondCrf,
-					returnlist);
-		} else {
-			returnlist.add(firstCrf);
-		}
-		return returnlist;
-	}
-
-	/**
-	 * @Title: searchCrfListReturnOneCrf
-	 * @Description: 再list中搜索符合条件的对象
-	 * @param: @param crfList
-	 * @param: @param linkageEnglishName
-	 * @param: @return :
-	 * @return: CrfTemplateAnzhenXinXueguan
-	 * @throws
-	 */
-	public static CrfTemplateAnzhenXinXueguan searchCrfListReturnOneCrf(
-			List<CrfTemplateAnzhenXinXueguan> crfList, String linkageEnglishName) {
-		CrfTemplateAnzhenXinXueguan crfTemplateAnzhenXinXueguan = new CrfTemplateAnzhenXinXueguan();
-		for (int i = 0; i < crfList.size(); i++) {
-			if (linkageEnglishName.equals(crfList.get(i).getEnglishName())) {
-				crfTemplateAnzhenXinXueguan = crfList.get(i);
-				break;
-			}
-		}
-		return crfTemplateAnzhenXinXueguan;
-	}
 
 	/**
 	 * @Title: rangeDataReturnNeededRangeData

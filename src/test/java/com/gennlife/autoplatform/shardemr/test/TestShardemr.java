@@ -38,11 +38,8 @@ public class TestShardemr {
 		oauthTokenMap.put("client_secret", "web");
 		
 		ConcurrentHashMap<String,String> shardemrMap = new ConcurrentHashMap<>();
-		//住院号
 		shardemrMap.put("inpatient_sn", "278684");
-		//身份证号
 		shardemrMap.put("patient_id", "320622196104016430");
-		//patient_sn
 		shardemrMap.put("patient_sn", "pat_60d87d6c8b784976ef2dd0df2e541f1c");
 		//shardemrMap.put("scopes", "visits.diagnose");
 		
@@ -56,11 +53,8 @@ public class TestShardemr {
 		Map<String, String> oauthTokenMap = Shardemr.createOauthTokenMap("testshard");
 		
 		ConcurrentHashMap<String,String> shardemrMap = new ConcurrentHashMap<>();
-		//住院号
 		shardemrMap.put("inpatient_sn", "278684");
-		//身份证号
 		shardemrMap.put("patient_id", "320622196104016430");
-		//patient_sn
 		shardemrMap.put("patient_sn", "pat_60d87d6c8b784976ef2dd0df2e541f1c");
 		//shardemrMap.put("scopes", "visits.diagnose");
 		
@@ -70,7 +64,6 @@ public class TestShardemr {
 		
 		
 		ExecutorService threadPool =Executors.newFixedThreadPool(10); 
-		// 执行任务
 		//Future<String> futureTest = null;
 		for (int i = 1; i < 11; i++) {
 			Future<String> futureTest=threadPool.submit(
@@ -88,7 +81,6 @@ public class TestShardemr {
 			e.printStackTrace();  
 		} */
 		
-		//关闭线程池和服务  
 		threadPool.shutdown();
 		
 		System.out.println("success");

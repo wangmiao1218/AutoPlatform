@@ -17,14 +17,12 @@ public class TestYantaiMongodbDataProcess {
 	public void search() {
 		String str = YantaiMongodbDataProcess.RysqkYongyaoqkReturnDataSources(patient_sn, rydate);
 		//System.out.println(str);
-        //读取excel药一列
         String filePath = "E:\\烟台升级\\crf数据测试";
     	String fileName = "神内脑血管药物.xlsx";
     	String sheetName = "降血脂药物";
     	String sheetName2 = "精神科药";
     	String sheetName3 = "降糖药物";
     	
-    	//降血脂药物
     	Excel excel = new Excel(filePath, fileName, sheetName);
         List<String> list = ExcelUtils.readExcelOfList(excel, 1);
         for (int i = 0; i < list.size(); i++) {
@@ -33,7 +31,6 @@ public class TestYantaiMongodbDataProcess {
 			}
 		}
         
-        //精神科药物
         Excel excel2 = new Excel(filePath, fileName, sheetName2);
         List<String> list2 = ExcelUtils.readExcelOfList(excel2, 0);
         for (int i = 0; i < list2.size(); i++) {
@@ -42,7 +39,6 @@ public class TestYantaiMongodbDataProcess {
 			}
 		}
 		
-        //降糖药物
         Excel excel3 = new Excel(filePath, fileName, sheetName3);
         List<String> list3 = ExcelUtils.readExcelOfList(excel3, 1);
         for (int i = 0; i < list3.size(); i++) {
@@ -51,11 +47,9 @@ public class TestYantaiMongodbDataProcess {
 			}
 		}
         
-        //胰岛素 来得时
         if (str.contains("来得时")) {
 			System.out.println("存在的_胰岛素：来得时");
 		}
-        //胰岛素 诺和灵
         if (str.contains("诺和灵")) {
         	System.out.println("存在的_胰岛素：诺和灵");
         }

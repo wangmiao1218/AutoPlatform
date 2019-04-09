@@ -30,69 +30,22 @@ public class TestSelectBaseTestNGTest {
 	//@BeforeClass
 	@BeforeMethod
 	public void setup() {
-		//登录
 		System.out.println("begin test");
-		
 	}
 	
 	@Test
 	public void test1() throws Exception {
 		System.out.println("at test1");
-		
 		CrfTemplate oldCrfTemplate = crfTemplateService.getCrfTemplateByEnglishName("GENDER");
 		System.out.println(oldCrfTemplate);
-		//获取newCrfTemplate
 		CrfTemplate newCrfTemplate = SelectBase.selectBase(driver,value, oldCrfTemplate);
-		
-		//保存到数据库
 		crfTemplateService.updateCrfTemplate(newCrfTemplate);
 		
 	}
-
-	/*@Test
-	public void test2() throws Exception {
-		System.out.println("at test2");
-		
-		CrfTemplate oldCrfTemplate = crfTemplateService.getCrfTemplateByEnglishName("CONTACT_AND_PATIENT_RELATIONSHIP");
-		System.out.println(oldCrfTemplate);
-		//获取newCrfTemplate
-		CrfTemplate newCrfTemplate = SelectBase.selectBase(driver,value, oldCrfTemplate);
-		
-		//保存到数据库
-		crfTemplateService.updateCrfTemplate(newCrfTemplate);
-	}
-
-	@Test
-	public void test3() throws Exception {
-		System.out.println("at test3");
-		
-		CrfTemplate oldCrfTemplate = crfTemplateService.getCrfTemplateByEnglishName("NATION");
-		System.out.println(oldCrfTemplate);
-		//获取newCrfTemplate
-		CrfTemplate newCrfTemplate = SelectBase.selectBase(driver,value, oldCrfTemplate);
-		
-		//保存到数据库
-		crfTemplateService.updateCrfTemplate(newCrfTemplate);
-	}
-	
-	@Test
-	public void test4() throws Exception {
-		System.out.println("at test4");
-		
-		CrfTemplate oldCrfTemplate = crfTemplateService.getCrfTemplateByEnglishName("OCCUPATION");
-		System.out.println(oldCrfTemplate);
-		//获取newCrfTemplate
-		CrfTemplate newCrfTemplate = SelectBase.selectBase(driver,value, oldCrfTemplate);
-		
-		//保存到数据库
-		crfTemplateService.updateCrfTemplate(newCrfTemplate);
-	}*/
 
 	@AfterClass
 	public void teardown() {
-		//关闭driver
 		QuitWebDriver.quitWebDriverByPhantomJSDriver(driver);
-		
 		System.out.println("end test");
 	}
 	

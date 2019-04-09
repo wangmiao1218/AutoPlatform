@@ -1,4 +1,4 @@
-package com.gennlife.autoplatform.zhpy.test;
+package com.gennlife.autoplatform.empitools.test;
 
 import org.junit.Test;
 

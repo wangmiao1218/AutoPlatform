@@ -32,7 +32,6 @@ public class TestRws {
 	
 	@Test
 	public void rwsEvent() throws Exception {
-		// 登录并到add页面
 		PhantomJSDriver driver = CreateWebDriver
 				.createWebDriverByPhantomJSDriver();
 		String loginValue = LoginRws.loginAndToRwsByPhantomJSDriver(driver,
@@ -46,12 +45,9 @@ public class TestRws {
 				e.printStackTrace();
 			}
 
-			// 到列表中第一个项目界面
 			driver.findElementByXPath(projectXpath).click();
-			// 到自定义指标列表
 			driver.findElementByXPath(indexsXpath).click();
 			
-			//验证页面
 			Screenshot.screenshot(driver);
 			
 			try {
@@ -59,7 +55,6 @@ public class TestRws {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			// 到newui页面
 			driver.findElementByXPath(newuiXpath).click();
 			//Screenshot.screenshot(driver);
 			
@@ -80,16 +75,8 @@ public class TestRws {
 			}
 			String current_url2 = driver.getCurrentUrl();
 			System.out.println(current_url2);
-			
-			//Screenshot.screenshot(driver);
-			
-			//报错 页面空白
-			//driver.findElementByXPath(indexXpath).click();
-
-			//System.out.println(text);
 
 		}
-		// 关闭driver
 		QuitWebDriver.quitWebDriverByPhantomJSDriver(driver);
 	}
 

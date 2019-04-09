@@ -37,14 +37,11 @@ public class TestJsonlUtils {
 		
 		for (int i = 0; i < jsonArray.length(); i++) {
 			String pat=((JSONObject) jsonArray.get(i)).get("_id").toString();
-			//System.out.println(pat);
 			list.add(pat);
 		}
 		
 		System.out.println(list.size());
 		
-		//============================================
-		//查数据库获取全部的pat
 		MongoCollection<Document> collection = MongodbJDBCUtils.connectRwsMongodbReturnMongoCollection(
 				"10.0.2.79", "rws", "55EBE5FC650B4752A53B18C6A0EA7BDB");
 		
@@ -53,15 +50,6 @@ public class TestJsonlUtils {
 		FindIterable<Document> findIterable = collection.find();
 		MongoCursor<Document> mongoCursor = findIterable.iterator();
 		System.out.println(mongoCursor.next());
-		/*while(mongoCursor.hasNext()){
-			System.out.println(mongoCursor.next());
-	　　　} */
-		
-		
-		//============================================
-		//对比两个list的不同值
-		
-		
 		
 	}
 	
@@ -118,8 +106,6 @@ public class TestJsonlUtils {
 	public void test06() throws Exception {
 		String patientDetailContent="visits.record.admissions_record.admissions_records_physical_examination";
 		String insertContent="test";
-		
-		//用.分割后，转换成数组
 		String[] strings = null;
 		if (patientDetailContent.contains(".")) {
 			strings = patientDetailContent.split("\\.");
@@ -135,8 +121,6 @@ public class TestJsonlUtils {
 		org.json.JSONObject baseJson = JsonUtils.readFileContentReturnJson(path2);
 		String patientDetailContent="visits.record.admissions_record.admissions_records_physical_examination";
 		String insertContent="test";
-		
-		//用.分割后，转换成数组
 		String[] strings = null;
 		if (patientDetailContent.contains(".")) {
 			strings = patientDetailContent.split("\\.");
@@ -144,36 +128,17 @@ public class TestJsonlUtils {
 				strings[i] = strings[i].trim();
 			}
 		}
-		
 		List<JSONObject> list = new ArrayList<JSONObject>();
 		Map<Object,Object> map = new HashMap<Object, Object>();
-		
-		
 		JSONObject middleJsonObject = new JSONObject();
 		JSONArray jsonArray = baseJson.getJSONArray(strings[0]);
-		//提取后的middleJsonObject
 		middleJsonObject=(JSONObject) jsonArray.get(0);
 		System.out.println(middleJsonObject);
-		
-		//String value = "{\"admissions_record\":[{\"admissions_records_physical_examination\" : \"test\"}]}";
 		String value = "{\"record\":[{\"admissions_record\":[{\"admissions_records_physical_examination\" : \"test\"}]}]}";
-		//转为jsonObject
 		JSONObject jsonObject  = new JSONObject(value);
 		System.out.println(jsonObject);
-		
-		//map.put("visits", middleJsonObject);
 		map.put("visits", jsonObject);
 		System.out.println(map);
-		
-		/*
-		list.add(middleJsonObject);
-		list.add(jsonObject);
-		net.sf.json.JSONArray jsonObj=net.sf.json.JSONArray.fromObject(list);
-		System.out.println(jsonObj);
-		
-		//添加所有
-		baseJson.accumulate("visits", jsonObj);
-		*/
 		System.out.println(baseJson);
 	}
 	
@@ -183,8 +148,6 @@ public class TestJsonlUtils {
 		org.json.JSONObject baseJson = JsonUtils.readFileContentReturnJson(path2);
 		String patientDetailContent="visits.record.admissions_record.admissions_records_physical_examination";
 		String insertContent="test";
-		
-		//用.分割后，转换成数组
 		String[] strings = null;
 		if (patientDetailContent.contains(".")) {
 			strings = patientDetailContent.split("\\.");
@@ -195,18 +158,7 @@ public class TestJsonlUtils {
 		
 		JSONObject middleJsonObject = new JSONObject();
 		JSONArray jsonArray = new JSONArray(); 
-		
-		//添加到baseJson
-		/*for (int i = 0; i < strings.length; i++) {
-			//定义中间JSONObject
-			jsonArray.put(value);
-			jsonArray.put(strings[strings.length-i-1], insertContent);
-			middleJsonObject.put(strings[strings.length-i-2], map);
-			System.out.println(middleJsonObject);
-		}*/
-		
 		System.out.println(baseJson);
-		
 		
 	}
 	

@@ -26,27 +26,5 @@ private String filePath = "C:\\Users\\www\\Desktop";
 		ConfiguredRequiredPath.writeRequiredPath(excelmb, excel);
 		System.out.println("ok");
 	}
-	/*
-	@Test
-	public void test1(){
-		Excel excel = new Excel(filePath, fileName2, sheetName2);
-		//获取中文名称一列（用readExcelOfListReturnListMap，因为有重复值）(除表头)
-		List<Map<Integer,String>> list = ExcelUtils.readExcelOfListReturnListMap(excel, 3);
-		for (int i = 1; i < list.size(); i++) {
-			Map<Integer, String> map = list.get(i);
-			//定义“联动”列的行号和内容（即：写入值时对应的行号）
-			Integer writeContentRowNum=null;
-			String allString=null;
-			for (Map.Entry<Integer, String> entry : map.entrySet()) {  
-				writeContentRowNum=entry.getKey();
-				allString=entry.getValue();
-				
-				
-				System.out.println(writeContentRowNum+"=="+allString);
-			}
-		}
-		System.out.println("ok");
-	}
-	*/
 	
 }

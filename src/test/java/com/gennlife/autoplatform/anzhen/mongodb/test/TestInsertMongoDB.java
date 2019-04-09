@@ -13,22 +13,15 @@ public class TestInsertMongoDB {
 
 	@Test
 	public void testInsert() throws Exception {
-		// 读取json文件
 		String fileName="E:\\安贞\\_wm数据json&js\\1.json";
 		File file = new File(fileName);
-		
 		String str = null;
-		// 读取文件
 		FileReader fr = null;
 		BufferedReader br = null;
-		
-		//
 		StringBuffer buf = null;
 		try {
 			fr = new FileReader(file);
 			br = new BufferedReader(fr);
-
-			//定义StringBuffer
 			buf = new StringBuffer();
 			
 			while ((str = br.readLine()) != null) {
@@ -49,9 +42,5 @@ public class TestInsertMongoDB {
 		//System.out.println(jsonObject);
 		
 	}
-
-	
-	
-	
 	
 }

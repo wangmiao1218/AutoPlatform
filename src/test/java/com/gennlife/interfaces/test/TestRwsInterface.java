@@ -32,11 +32,7 @@ public class TestRwsInterface {
 		String id = null;
 		String applyTotal = null;
 		
-		//第一步：请求登录,获取session
 		JSONObject loginResultObject = RwsInterface.doGet(httpClient,loginURL);
-		//System.out.println(loginResultObject);
-		//System.out.println("1".contains(loginResultObject.getString("code")));
-		//判断返回结果
 		if ("1".contains(loginResultObject.getString("code"))) {
 			sessionId = ((JSONObject) loginResultObject.get("data")).getString("uid");
 			System.out.println(sessionId);
@@ -51,7 +47,6 @@ public class TestRwsInterface {
 				System.out.println(id);
 				System.out.println("sleep...");
 				Thread.sleep(120000);
-				//第三步：查看计算结果接口，直到有数值类型，保存到map中
 				JSONObject resultObject = RwsInterface.rwsResult(httpClient,rwsResultURL,sessionId, id);
 				if ("200".contains(calculateResultObject.getString("status"))) {
 					applyTotal = ((JSONObject) resultObject.get("data")).getString("applyTotal");
@@ -90,20 +85,6 @@ public class TestRwsInterface {
 			}
             System.out.println(matcher.group(0));
         }
-        
-       /* 
-        String all = null;
-        while (matcher.find ()){
-            System.out.println (matcher.group ());
-            String a=matcher.group ();
-            all = json.toString().replaceAll(a, 
-            		new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-        }
-        
-        Matcher matcher2 = p.matcher(all);
-        while (matcher2.find ()){
-            System.out.println (matcher2.group ());
-        }*/
 	}
 	
 	

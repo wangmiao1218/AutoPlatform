@@ -15,22 +15,14 @@ public class TestScreenshot {
 
 	@Test
 	public void screenshot() throws Exception {
-		// 登录并到add页面
 		PhantomJSDriver driver = CreateWebDriver.createWebDriverByPhantomJSDriver();
 		LoginCrf.loginAndToDanbingzhongByPhantomJSDriver(driver);
-		//LoginCrf.loginAndToBasicInfoByPhantomJSDriver(driver);
-
-		//到指定元素界面
-		//driver.findElementByXPath("html/body/div/div[3]/div/div[3]/table/tbody/tr[1]/td[2]/a").click();;
-		//driver.findElementByXPath("//*[@id='crf-data-map']/div[2]/div[1]/img").click();
-		// 等待
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		Screenshot.screenshot(driver);
-		// 关闭driver
 		QuitWebDriver.quitWebDriverByPhantomJSDriver(driver);
 	}
 

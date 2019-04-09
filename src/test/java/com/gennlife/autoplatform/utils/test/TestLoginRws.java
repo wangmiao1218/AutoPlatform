@@ -21,14 +21,9 @@ public class TestLoginRws {
 
 	@Test
 	public void loginAndToRWSByPhantomJSDriver() throws Exception {
-		// 登录并到add页面
 		PhantomJSDriver driver = CreateWebDriver.createWebDriverByPhantomJSDriver();
-		
 		String value = LoginRws.loginAndToRwsByPhantomJSDriver(driver, rwsUrl,loginName, pwd);
-		
 		System.out.println(value);
-		
-		// 关闭driver
 		QuitWebDriver.quitWebDriverByPhantomJSDriver(driver);
 	}
 	

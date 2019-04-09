@@ -36,12 +36,8 @@ public class TestExcelUtils {
 	public void readExcelOfOneList(){
 		Excel excel = new Excel(filePath, fileName, sheetName);
 		List<String> enNamesList = ExcelUtils.readExcelOfList(excel, 3);
-		//英文过滤
 		List<String> enNamesListFilter = ListAndStringUtils.enNamesListFilter(enNamesList);
-		//加序号
 		List<String> sequenceList = ListAndStringUtils.sameListTransferToSequenceList(enNamesListFilter);
-		
-		//写入
 		for (int i = 1; i < sequenceList.size(); i++) {
 			ExcelUtils.writeAndSaveContent(excel, sequenceList.get(i), i, 3);
 		}

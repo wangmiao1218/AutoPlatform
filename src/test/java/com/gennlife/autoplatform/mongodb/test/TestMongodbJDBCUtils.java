@@ -18,11 +18,9 @@ public class TestMongodbJDBCUtils {
 	@Test
 	public void connectYantaiMongodbReturnMongoCollection() {
 		MongoCollection<Document> mongoCollection = MongodbJDBCUtils.connectYantaiMongodbReturnMongoCollection();
-		//大的查询条件
 		BasicDBObject query = new BasicDBObject();  
 		query.put("patient_info.patient_info_patient_sn","pat_60fc1ba93ac2f03de9f2206e38b52669"); 
 		
-		//数组内查询条件
 		BasicDBObject edit = new BasicDBObject();
 		edit.put("type.visit_info_admission_date","2016-08-05 10:59:00");
 		edit.put("type.visit_info_admission_dept","神经内科");
@@ -44,12 +42,8 @@ public class TestMongodbJDBCUtils {
 	@Test
 	public void connectYantaiMongodbReturnDBCollection() {
 		DBCollection dbCollection = MongodbJDBCUtils.connectYantaiMongodbReturnDBCollection();
-		
-		//大的查询条件
 		BasicDBObject query = new BasicDBObject();  
 		query.put("patient_info.patient_info_patient_sn","pat_60fc1ba93ac2f03de9f2206e38b52669"); 
-		
-		//数组内查询条件
 		BasicDBObject edit = new BasicDBObject();
 		edit.put("visits", new BasicDBObject("$elemMatch", 
 				new BasicDBObject("type.visit_info_admission_date","2016-08-05 10:59:00")
