@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	
+	<!-- spring的自动扫描配置，会扫描使用@Service注解的类到IOC容器中 -->
+	<context:component-scan base-package="com.gennlife.crf.service"></context:component-scan>
+	
+	<!-- 扫描配置文件 -->
+	<context:property-placeholder file-encoding="utf-8" location="classpath:db.properties" />
+	
+	<!-- 连接池 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	
+	<!-- 整合mybatis -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:com/gennlife/crf/mapper/*.xml" />
+		<!-- 分页插件开始 -->
+		<property name="typeAliasesPackage" value="com.isea533.ssm.model" />
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageHelper">
+					<property name="properties">
+						<value>
+							<!-- 注意写法，参数后面等于号，然后写配置项目 -->
+							dialect=mysql
+							params=pageNum=start;pageSize=limit;
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
+		<!-- 分页插件结束 -->
+	</bean>
+	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.gennlife.crf.mapper" />
+	</bean>
+	
+	<!-- 配置事务 -->
+	<!-- 事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- 配置事务的通知 -->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager" >
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="append*" propagation="REQUIRED" />
+            <tx:method name="insert*" propagation="REQUIRED" />
+            <tx:method name="save*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="modify*" propagation="REQUIRED" />
+            <tx:method name="edit*" propagation="REQUIRED" />
+            <tx:method name="delete*" propagation="REQUIRED" />
+            <tx:method name="remove*" propagation="REQUIRED" />
+            <tx:method name="repair" propagation="REQUIRED" />
+            <tx:method name="delAndRepair" propagation="REQUIRED" />
+
+            <tx:method name="get*" propagation="SUPPORTS" />
+            <tx:method name="find*" propagation="SUPPORTS" />
+            <tx:method name="load*" propagation="SUPPORTS" />
+            <tx:method name="search*" propagation="SUPPORTS" />
+            <tx:method name="datagrid*" propagation="SUPPORTS" />
+
+            <tx:method name="*" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 配置切面 -->
+	<aop:config>
+		<aop:pointcut id="transactionPointcut" expression="execution (* com.gennlife.crf.service..*Impl.*(..))"/>
+		<aop:advisor advice-ref="transactionAdvice" pointcut-ref="transactionPointcut"/>
+	</aop:config>
+	
+	<!-- 开始整合定时任务 -->
+	<!-- 定义TriggerServiceBean(手动引入，不需要@service注解) -->
+    <bean id="triggerService" class="com.gennlife.crf.service.impl.TriggerServiceImpl"></bean>
+    
+	<!-- start 整合quartz -->
+  	<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	    <property name="targetObject" ref="triggerService" />
+	    <property name="targetMethod" value="doIt" />
+	</bean>
+	
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+	    <property name="jobDetail" ref="jobDetail" />
+	    <!-- 每5秒执行一次(测试：/5 * * * * ?) --> 
+	    <!-- <property name="cronExpression" value="/5 * * * * ?" /> -->
+	    <!-- 每5分钟执行一次 -->
+	    <property name="cronExpression" value="0 0/5 * * * ?" />
+	    <!--每天晚上12点导出  -->
+	  	<!-- <property name="cronExpression" value="0 0 0 * * ?" /> -->
+	</bean>
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	    <property name="triggers">
+	        <list>
+	            <ref bean="cronTrigger" />
+	        </list>
+	    </property>
+	</bean>
+	<!-- 整合quartz end -->
+	
+	
+	<!-- 开始整合shiro -->
+	<!--开始配置SecurityManager.1、缓存管理器.2、realm：用来访问安全数据-->    	 
+ 	<!-- <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+    	<property name="cacheManager" ref="cacheManager"/>
+    	<property name="realm" ref="shiroRealm"/>
+    </bean> -->
+
+    <!-- 缓存管理器 -->
+    <!-- <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache-shiro.xml"/> 
+    </bean> -->
+
+	<!-- 设置自定义的realm -->
+    <!-- <bean id="shiroRealm" class="com.gennlife.crf.realm.CrfRealm">
+    	<property name="credentialsMatcher">
+    		<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+    			指定好加密算法
+    			<property name="hashAlgorithmName" value="MD5" />
+    			指定好加密的次数
+    			<property name="hashIterations" value="1024" />
+    		</bean>
+    	</property>
+    </bean> -->
+
+    <!-- 使用LifecycleBeanPostProcessor 来管理shiro的bean的生命周期 -->
+    <!-- <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+ -->
+    <!-- 开启shiro的注解.注意：只有在配置了lifecycleBeanProcessor以后才生效 -->
+   <!--  <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean> -->
+
+    <!-- shiroFilter采用的是org.apache.shiro.spring.web.ShiroFilterFactoryBean
+    	filterChainDefinitions：用来配置资源和权限的关系
+    	① anon：不进行校验
+    	② authc：进行验证
+     -->
+   <!--  <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean"> -->
+    	<!-- 引用上面定义的securityManager -->
+      <!--   <property name="securityManager" ref="securityManager"/> -->
+        <!-- 定义登录的页面 -->
+        <!-- <property name="loginUrl" value="/login.jsp"/> -->
+        <!-- 未授权的页面 -->
+        <!--  <property name="unauthorizedUrl" value="/unauthorized.jsp"/> -->
+       <!--  <property name="filterChainDefinitions">
+            <value>
+            	/doLogout = logout
+            	/res/** = anon
+            	/theme/** = anon
+            	/logincontroller/** = anon
+                # everything requires authentication:
+                /** = authc
+            </value>
+        </property> -->
+   <!--  </bean> -->
+	<!--整合shiro end  -->
+	
+</beans>

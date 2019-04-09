@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<script type="text/javascript">
+function exec () {  
+    var command;  
+    var shell = new ActiveXObject("WScript.Shell"); 
+    try
+    {
+        command = shell.RegRead("HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\vitark\\InstallLocation");//从注册表获得软件安装路径 
+		var dir = command.replace(/\\/g,"/")
+		alert(dir)
+		//var cmd = "cmd /c start C:/Users/lz/AppData/Local/Google/Chrome/Application/chrome.exe \"http://10.0.2.162/uranus/detail_case.html?uid=Y2RlYmI4NzYtOTZhYy00NWI3LWFkOTctNzkwNTc2YTZkZjI3&patient_sn=cGF0X2YzNWE3YmQxZTliYWFhOTY0NDFlZDBmZDU2N2JiNmZh&q=&adv&conditionType=Mw\"";
+		var path= "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe";
+        var cmd = "cmd /c start " + "\"\" \"" + path + "\" \"http://10.0.2.162/uranus/detail_case.html?uid=Y2RlYmI4NzYtOTZhYy00NWI3LWFkOTctNzkwNTc2YTZkZjI3&patient_sn=cGF0X2YzNWE3YmQxZTliYWFhOTY0NDFlZDBmZDU2N2JiNmZh&q=&adv&conditionType=Mw\"";
+		alert(cmd)
+		var f = shell.Run(cmd,0); 
+		shell = null; 
+	}
+    catch(e)
+    {
+        if(window.confirm("你可能还没有安装Radiant，请下载安装")){
+            //alert("确定");
+             window.location.href="jspView/radiantsetup32312921.exe";
+             return false;
+         }else{
+            return false;
+        }
+    }
+     window.onerror = function (err) {  
+      if (err.indexOf('utomation') != -1) {  
+        alert('命令' + window._command + ' 已经被用户禁止！');   
+        return true;
+       }  
+       else return false;  
+     };   
+     window.onerror = window.oldOnError;
+}  
+exec ()
+</script>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+6:29:43,102 [Worker-75] ERROR o.e.m.j.i.l.MavenLaunchConfigurationListener - Launch configuration TestRandomString.randomRangeInt references non-existing project crf_mysql.
+org.eclipse.core.runtime.CoreException: Launch configuration TestRandomString.randomRangeInt references non-existing project crf_mysql.
+	at org.eclipse.jdt.launching.JavaRuntime.abort(JavaRuntime.java:1403) ~[org.eclipse.jdt.launching_3.7.1.v20131218-1102.jar:na]
+	at org.eclipse.jdt.launching.JavaRuntime.getJavaProject(JavaRuntime.java:1278) ~[org.eclipse.jdt.launching_3.7.1.v20131218-1102.jar:na]
+	at org.eclipse.m2e.jdt.internal.launch.MavenLaunchConfigurationListener.updateLaunchConfiguration(MavenLaunchConfigurationListener.java:53) [org.eclipse.m2e.jdt_1.4.1.20140328-1905.jar:na]
+	at org.eclipse.m2e.jdt.internal.launch.MavenLaunchConfigurationListener.launchConfigurationCha

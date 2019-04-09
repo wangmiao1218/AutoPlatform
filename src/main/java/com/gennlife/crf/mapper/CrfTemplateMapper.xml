@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gennlife.crf.mapper.CrfTemplateMapper">
+	<resultMap id="BaseResultMap" type="com.gennlife.crf.bean.CrfTemplate">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="baseName" property="baseName" jdbcType="VARCHAR" />
+		<result column="chineseName" property="chineseName" jdbcType="VARCHAR" />
+		<result column="englishName" property="englishName" jdbcType="VARCHAR" />
+		<result column="dataType" property="dataType" jdbcType="VARCHAR" />
+		<result column="variableType" property="variableType" jdbcType="VARCHAR" />
+		<result column="rangeData" property="rangeData" jdbcType="VARCHAR" />
+		<result column="input" property="input" jdbcType="VARCHAR" />
+		<result column="xpath" property="xpath" jdbcType="VARCHAR" />
+		<result column="output" property="output" jdbcType="VARCHAR" />
+		<result column="result" property="result" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="CrfTemplate_Column_List">
+		id, baseName,
+		chineseName,englishName,dataType,variableType,rangeData,input,xpath,output,result
+	</sql>
+
+	<!-- 查询CrfTemplate列表（PageHelper） -->
+	<select id="getCrfTemplateList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		<include refid="CrfTemplate_Column_List"></include>
+		from crf_template_anzhen_all
+	</select>
+
+
+	<!-- 通过englishName查询CrfTemplate -->
+	<select id="getCrfTemplateByEnglishName" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		<include refid="CrfTemplate_Column_List"></include>
+		from crf_template_anzhen_all
+		where englishName=#{englishName}
+	</select>
+
+
+	<!-- 根据VariableType查询列表 -->
+	<select id="getCrfTemplateListByVariableType" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		<include refid="CrfTemplate_Column_List"></include>
+		from crf_template_anzhen_all
+		where variableType=#{variableType}
+	</select>
+
+	<!-- 更新CrfTemplate -->
+	<update id="updateCrfTemplate" parameterType="com.gennlife.crf.bean.CrfTemplate">
+		update crf_template_anzhen_all
+		<set>
+			<if test="baseName != null">
+				baseName = #{baseName,jdbcType=VARCHAR},
+			</if>
+			<if test="chineseName != null">
+				chineseName = #{chineseName,jdbcType=VARCHAR},
+			</if>
+			<if test="englishName != null">
+				englishName = #{englishName,jdbcType=VARCHAR},
+			</if>
+			<if test="dataType != null">
+				dataType = #{dataType,jdbcType=VARCHAR},
+			</if>
+			<if test="variableType != null">
+				variableType = #{variableType,jdbcType=VARCHAR},
+			</if>
+			<if test="rangeData != null">
+				rangeData = #{rangeData,jdbcType=VARCHAR},
+			</if>
+			<if test="input != null">
+				input = #{input,jdbcType=VARCHAR},
+			</if>
+			<if test="xpath != null">
+				xpath = #{xpath,jdbcType=VARCHAR},
+			</if>
+			<if test="output != null">
+				output = #{output,jdbcType=VARCHAR},
+			</if>
+			<if test="result != null">
+				result = #{result,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+</mapper>

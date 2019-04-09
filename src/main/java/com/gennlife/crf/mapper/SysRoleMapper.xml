@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gennlife.crf.mapper.SysRoleMapper">
+	<resultMap id="BaseResultMap" type="com.gennlife.crf.bean.SysRole">
+		<id column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+		<result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+		<result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+		<result column="DATA_STATE" property="dataState" jdbcType="DECIMAL" />
+		<result column="CREATOR" property="creator" jdbcType="DECIMAL" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="MODIFIER" property="modifier" jdbcType="DECIMAL" />
+		<result column="MODIFY_DATE" property="modifyDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="SysRole_Column_List">
+		ROLE_ID, ROLE_NAME, ROLE_DESC, DATA_STATE, CREATOR,
+		CREATE_DATE, MODIFIER, MODIFY_DATE
+	</sql>
+
+	<!--获取与角色集合（用PageHelper进行分页） -->
+	<select id="geRoleList" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="SysRole_Column_List" />
+		from sys_role
+		<where>
+			data_state=1
+			<if test="roleName!=null">
+				AND role_name = #{roleName}
+			</if>
+		</where>
+	</select>
+
+	<!-- 查询角色的权限状态，用于角色菜单模块zTree显示 -->
+	<select id="getRolFuncTree" parameterType="java.util.Map"
+		resultType="com.gennlife.crf.bean.SysFuncBeanForRoleTree">
+		SELECT sf.`FUNC_ID` funcId,`SUP_FUNC_ID`
+		supFuncId,`FUNC_NAME` name,
+		CASE
+		WHEN
+		srf.FUNC_ID IS NOT NULL
+		THEN
+		'true'
+		ELSE
+		'false'
+		END AS checked
+		FROM `sys_func` sf
+		LEFT JOIN
+		`sys_role_func`
+		srf
+		ON sf.`FUNC_ID`=srf.`FUNC_ID`
+		AND
+		srf.`ROLE_ID`=#{opId}
+	</select>
+</mapper>

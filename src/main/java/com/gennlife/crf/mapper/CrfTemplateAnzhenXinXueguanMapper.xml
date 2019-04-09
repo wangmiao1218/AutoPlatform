@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gennlife.crf.mapper.CrfTemplateAnzhenXinXueguanMapper">
+	<resultMap id="BaseResultMap" type="com.gennlife.crf.bean.CrfTemplateAnzhenXinXueguan">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="baseName" property="baseName" jdbcType="VARCHAR" />
+		<result column="secondGroup" property="secondGroup" jdbcType="VARCHAR" />
+		<result column="thirdGroup" property="thirdGroup" jdbcType="VARCHAR" />
+		<result column="chineseName" property="chineseName" jdbcType="VARCHAR" />
+		<result column="englishName" property="englishName" jdbcType="VARCHAR" />
+		<result column="idXpath" property="idXpath" jdbcType="VARCHAR" />
+		<result column="displayMainKey" property="displayMainKey" jdbcType="VARCHAR" />
+		<result column="displayMainValue" property="displayMainValue" jdbcType="VARCHAR" />
+		<result column="dataType" property="dataType" jdbcType="VARCHAR" />
+		<result column="variableType" property="variableType" jdbcType="VARCHAR" />
+		<result column="rangeData" property="rangeData" jdbcType="VARCHAR" />
+		<result column="dateFormat" property="dateFormat" jdbcType="VARCHAR" />
+		<result column="inputValue" property="inputValue" jdbcType="VARCHAR" />
+		<result column="selectOutputValue" property="selectOutputValue" jdbcType="VARCHAR" />
+		<result column="selectResult" property="selectResult" jdbcType="VARCHAR" />
+		<result column="linkageResult" property="linkageResult" jdbcType="VARCHAR" />
+		<result column="minMaxAlertOutputValue" property="minMaxAlertOutputValue" jdbcType="VARCHAR" />
+		<result column="minMaxAlertResult" property="minMaxAlertResult" jdbcType="VARCHAR" />
+		<result column="minValue" property="minValue" jdbcType="VARCHAR" />
+		<result column="maxValue" property="maxValue" jdbcType="VARCHAR" />
+		<result column="minAlertValue" property="minAlertValue" jdbcType="VARCHAR" />
+		<result column="maxAlertValue" property="maxAlertValue" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="CrfTemplateAnzhenXinXueguan_Column_List">
+		id, baseName,secondGroup,thirdGroup,chineseName,englishName,
+		idXpath,displayMainKey,displayMainValue,dataType,variableType,
+		rangeData,inputValue,selectOutputValue,selectResult,linkageResult,
+		dateFormat,minMaxAlertOutputValue,minMaxAlertResult,minValue,maxValue,
+		minAlertValue,maxAlertValue
+	</sql>
+
+	<!-- 查询CrfTemplateAnzhenXinXueguan列表（PageHelper） -->
+	<select id="getCrfTemplateAnzhenXinXueguanList" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		SELECT
+		<include refid="CrfTemplateAnzhenXinXueguan_Column_List"></include>
+		from crf_template_anzhen_xinxueguan
+	</select>
+
+	<!-- 根据VariableType查询列表 -->
+	<select id="getCrfTemplateAnzhenXinXueguanListByVariableType" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		<include refid="CrfTemplateAnzhenXinXueguan_Column_List"></include>
+		from crf_template_anzhen_xinxueguan
+		where variableType=#{variableType}
+	</select>
+
+	<!-- 通过englishName查询CrfTemplateAnzhenXinXueguan -->
+	<select id="getCrfTemplateAnzhenXinXueguanByEnglishName" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		<include refid="CrfTemplateAnzhenXinXueguan_Column_List"></include>
+		from crf_template_anzhen_xinxueguan
+		where englishName=#{englishName}
+	</select>
+
+	<!-- 通过baseName查询列表 -->
+	<select id="getCrfTemplateAnzhenXinXueguanListByBaseName" resultMap="BaseResultMap" 
+		parameterType="java.lang.String">
+		SELECT
+		<include refid="CrfTemplateAnzhenXinXueguan_Column_List"></include>
+		from crf_template_anzhen_xinxueguan
+		where baseName=#{baseName}
+	</select>
+	
+	<!-- 更新CrfTemplate -->
+	<update id="updateCrfTemplateAnzhenXinXueguan" parameterType="com.gennlife.crf.bean.CrfTemplateAnzhenXinXueguan">
+		update crf_template_anzhen_xinxueguan
+		<set>
+			<if test="baseName != null">
+				baseName = #{baseName,jdbcType=VARCHAR},
+			</if>
+			<if test="secondGroup != null">
+				secondGroup = #{secondGroup,jdbcType=VARCHAR},
+			</if>
+			<if test="thirdGroup != null">
+				thirdGroup = #{thirdGroup,jdbcType=VARCHAR},
+			</if>
+			<if test="chineseName != null">
+				chineseName = #{chineseName,jdbcType=VARCHAR},
+			</if>
+			<if test="englishName != null">
+				englishName = #{englishName,jdbcType=VARCHAR},
+			</if>
+			<if test="idXpath != null">
+				idXpath = #{idXpath,jdbcType=VARCHAR},
+			</if>
+			<if test="displayMainKey != null">
+				displayMainKey = #{displayMainKey,jdbcType=VARCHAR},
+			</if>
+			<if test="displayMainValue != null">
+				displayMainValue = #{displayMainValue,jdbcType=VARCHAR},
+			</if>
+			<if test="dataType != null">
+				dataType = #{dataType,jdbcType=VARCHAR},
+			</if>
+			<if test="variableType != null">
+				variableType = #{variableType,jdbcType=VARCHAR},
+			</if>
+			<if test="rangeData != null">
+				rangeData = #{rangeData,jdbcType=VARCHAR},
+			</if>
+			<if test="dateFormat != null">
+				dateFormat = #{dateFormat,jdbcType=VARCHAR},
+			</if>
+			<if test="inputValue != null">
+				inputValue = #{inputValue,jdbcType=VARCHAR},
+			</if>
+			<if test="selectOutputValue != null">
+				selectOutputValue = #{selectOutputValue,jdbcType=VARCHAR},
+			</if>
+			<if test="selectResult != null">
+				selectResult = #{selectResult,jdbcType=VARCHAR},
+			</if>
+			<if test="linkageResult != null">
+				linkageResult = #{linkageResult,jdbcType=VARCHAR},
+			</if>
+			<if test="minMaxAlertOutputValue != null">
+				minMaxAlertOutputValue = #{minMaxAlertOutputValue,jdbcType=VARCHAR},
+			</if>
+			<if test="minMaxAlertResult != null">
+				minMaxAlertResult = #{minMaxAlertResult,jdbcType=VARCHAR},
+			</if>
+			<if test="minValue != null">
+				minValue = #{minValue,jdbcType=VARCHAR},
+			</if>
+			<if test="maxValue != null">
+				maxValue = #{maxValue,jdbcType=VARCHAR},
+			</if>
+			<if test="minAlertValue != null">
+				minAlertValue = #{minAlertValue,jdbcType=VARCHAR},
+			</if>
+			<if test="maxAlertValue != null">
+				maxAlertValue = #{maxAlertValue,jdbcType=VARCHAR}
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	
+	<!-- 根据BaseName，清空linkageResult结果 -->
+	<update id="updateCrfTemplateAnzhenXinXueguanListLinkageResultByBaseName" 
+			parameterType="java.lang.String">
+		update crf_template_anzhen_xinxueguan
+		<set>
+			linkageResult=null
+		</set>
+		where baseName=#{baseName}
+	</update>
+
+	<!-- 获取linkageResult验证结果列表 -->
+	<select id="getVerifyLinkageFieldResultList" resultMap="BaseResultMap">
+		SELECT
+		<include refid="CrfTemplateAnzhenXinXueguan_Column_List"></include>
+		from crf_template_anzhen_xinxueguan
+		where linkageResult="no" or linkageResult="整组存在组联动情况，请人工判断"
+	</select>
+
+	<!-- 根据baseName，获取linkageResult验证结果列表 -->
+	<select id="getVerifyLinkageFieldResultListByBaseName" resultMap="BaseResultMap" 
+			parameterType="java.lang.String">
+		SELECT
+		<include refid="CrfTemplateAnzhenXinXueguan_Column_List"></include>
+		from crf_template_anzhen_xinxueguan
+		where baseName=#{baseName}
+		and (linkageResult="no" or linkageResult="整组存在组联动情况，请人工判断")
+	</select>
+
+
+</mapper>
