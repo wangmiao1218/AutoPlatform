@@ -249,19 +249,15 @@ public class VerifyCodeUtil {
 				graphics.drawLine(x, y, x1, y1);
 			}
 		}
-		// 字体大小为图片高度的80%
 		int fsize = (int) (height * 0.8);
 		int fx = height - fsize;
 		int fy = fsize;
-		// 设定字体
 		graphics.setFont(new Font("Default", Font.PLAIN, fsize));
-		// 写验证码字符
 		for (int i = 0; i < textCode.length(); i++) {
 			fy = randomLocation ? (int) ((Math.random() * 0.3 + 0.6) * height)
 					: fy;
 			graphics.setColor(null == foreColor ? generateRandomColor()
 					: foreColor);
-			// 将验证码字符显示到图象中
 			graphics.drawString(textCode.charAt(i) + "", fx, fy);
 			fx += fsize * 0.9;
 		}

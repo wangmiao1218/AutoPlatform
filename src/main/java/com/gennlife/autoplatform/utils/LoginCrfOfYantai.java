@@ -31,39 +31,28 @@ public class LoginCrfOfYantai {
 	 * @throws
 	 */
 	public static String loginAndToDanbingzhongByPhantomJSDriver(PhantomJSDriver driver) {
-	//	driver.get(loginUrl);
 		driver.get(danbingzhongUrl);
-
-		// 等待
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
-		// 登录
 		driver.findElementById("loginName").clear();
 		driver.findElementById("loginName").sendKeys(loginName);
 		driver.findElementById("pwd").clear();
 		driver.findElementById("pwd").sendKeys(pwd);
 
 		driver.findElementById("login").click();
-
-		// 等待
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
 		String returnString=null;
 		String text = driver.findElementByXPath(".//*[@id='action-container']/div[1]/button[1]").getText();
-		
-		//
 		if ("添加".equals(text)) {
 			returnString = "登陆成功";
 		}
-		
 		return returnString;
 	}
 
@@ -78,39 +67,26 @@ public class LoginCrfOfYantai {
 	public static String loginAndToAddBasicInfoByPhantomJSDriver(PhantomJSDriver driver) {
 		String returnString = loginAndToDanbingzhongByPhantomJSDriver(driver);
 		if ("登陆成功".equals(returnString)) {
-
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
-			// 获取添加按钮
 			driver.findElementByXPath(".//*[@id='action-container']/div[1]/button[1]").click();
-			
-			// 得到当前窗口的set集合
 			Set<String> winHandels = driver.getWindowHandles();
-			// 将set集合存入list对象
 			List<String> it = new ArrayList<String>(winHandels);
-			// 切换到弹出的新窗口
 			driver.switchTo().window(it.get(1));
 		}
-		
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
 		String value = null;
-
-		// 获取保存按钮，若存在则在添加页面
 		String text = driver.findElementById("input-save").getText();
-		//
 		if ("保存".equals(text)) {
 			value = "添加页面";
 		}
-		
 		return value;
 	}
 	

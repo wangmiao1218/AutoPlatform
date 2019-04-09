@@ -162,11 +162,8 @@ public class SwingCrfLogicTools extends JFrame implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent event) {
-    	//配置英文名
     	if (event.getSource() == start_button) {
-    		//页面显示
     		 outtext_textarea.setText("若长时间无反应，则检查excel配置是否正确（再重新执行）。请稍后...");
-            //确认对话框弹出  //YES_NO_OPTION
             int result = JOptionPane.showConfirmDialog(null, "请确认文件处于关闭状态，是否开始执行?", "确认", 0);
             if (result == 1) {//是：0，否：1，取消：2
                 return;
@@ -184,19 +181,16 @@ public class SwingCrfLogicTools extends JFrame implements ActionListener {
                 String infilepath_Excel = infilepath_textfieldExcel.getText().trim();
                 String infilepath_Json = infilepath_textfieldJson.getText().trim();
                 String outfilepath = outfilepath_textfield.getText().trim();
-                //输入文本
+
                 String infilepath_Mongo = infilepath_textfieldMongo.getText().trim();
                 String infilepath_Auto = infilepath_textfieldAuto.getText().trim();
                 String infilepath_Disease = infilepath_textfieldDisease.getText().trim();
                 
-                //调用方法开始
-                //先把文件copy到输出路径
-                //然后执行方法
             	String outFilePath = ListAndStringUtils.stringReplaceReturnValue(outfilepath);
             	String fileName_Excel = ListAndStringUtils.stringToSubstringReturnFileName(infilepath_Excel);
             	String fileName_Json = ListAndStringUtils.stringToSubstringReturnFileName(infilepath_Json);
-            	 //先把文件copy到输出路径
-                try {
+
+            	try {
 					FileUtils.copyFile(ListAndStringUtils.stringReplaceReturnValue(infilepath_Excel), outFilePath+"\\\\"+fileName_Excel);
                 } catch (Exception e1) {
 					e1.printStackTrace();
@@ -208,32 +202,22 @@ public class SwingCrfLogicTools extends JFrame implements ActionListener {
                 }
                 
                 Excel excel = new Excel(outFilePath,fileName_Excel, "Sheet1");
-                //处理后的json文件path
                 String path_Json = outFilePath+"\\\\"+fileName_Json;
                 
                 try {
-                	//调用方法_插入patientDetail
-                	//CrfLogic.insertDatasIntoPatientDetailAndPostAndWritePatIntoExcel(excel, path_Json,infilepath_Mongo, infilepath_Auto, infilepath_Disease);
-                	//使用心得逻辑
                 	CrfLogic.addFirstPat_insertDatasIntoPatientDetailAndPostAndWritePatIntoExcel(excel, path_Json,infilepath_Mongo, infilepath_Auto, infilepath_Disease);
-                	
-                	//调用方法_查询crfdata
                 	CrfLogic.queryCrfdataByPatAndWriteResults(excel,infilepath_Mongo);
                 	
-                	//===========改变名称 start=========
                 	String newFileName_Excel=null;
 					File file=new File(outFilePath+"\\\\"+fileName_Excel); 
 					newFileName_Excel = ListAndStringUtils.segmentFileAllNameToFileName(fileName_Excel);
 					newFileName_Excel = newFileName_Excel+"_"+new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date());
 					file.renameTo(new File(outFilePath+"\\\\"+newFileName_Excel+".xlsx"));
-                	//===========改变名称 end=========
 					
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
                 
-                //调用方法结束
-                //打开输出文件所在文件夹
                 result = JOptionPane.showConfirmDialog(null, "已完成！是否打开输出文件所在文件夹?", "确认", 0);//YES_NO_OPTION
                 if (result == 0) {//是：0，否：1，取消：2
                     try {
@@ -244,11 +228,9 @@ public class SwingCrfLogicTools extends JFrame implements ActionListener {
                         e.printStackTrace();
                     }   
                 }
-                //页面显示
                 outtext_textarea.setText("ok...");
             }
 		}else{
-            //判断三个选择按钮并对应操作
             if(event.getSource() == infilepath_buttonExcel) {
                 File file = openChoseWindow(JFileChooser.FILES_ONLY);
                 if(file == null)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.gennlife.crf.mapper.SysOpMapper">
-	<resultMap id="BaseResultMap" type="com.gennlife.crf.bean.SysOp">
+<mapper namespace="com.gennlife.autoplatform.mapper.SysOpMapper">
+	<resultMap id="BaseResultMap" type="com.gennlife.autoplatform.bean.SysOp">
 		<id column="OP_ID" property="opId" jdbcType="DECIMAL" />
 		<result column="OP_NAME" property="opName" jdbcType="VARCHAR" />
 		<result column="OP_CODE" property="opCode" jdbcType="VARCHAR" />
@@ -29,7 +29,7 @@
 
 	<!-- 根据用户名和密码查询用户 -->
 	<select id="getSysOpByUnameAndPwd" resultMap="BaseResultMap"
-		parameterType="com.gennlife.crf.bean.SysOp">
+		parameterType="com.gennlife.autoplatform.bean.SysOp">
 		SELECT
 		<include refid="SysOpMapper_Column_List"></include>
 		from sys_op s

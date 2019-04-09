@@ -34,28 +34,20 @@ public class PatientDetailsInfoOfEMPIServerInterface {
 		String params = "{\"UserId\":\"\",\"Uuids\":[" + patStrs
 				+ "],\"Source\":[\"PatiName\",\"IDCard\",\"InPatientSn\"]}";
 		try {
-			// 创建连接
 			URL url = new URL(strURL);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setDoOutput(true);
 			connection.setDoInput(true);
 			connection.setUseCaches(false);
 			connection.setInstanceFollowRedirects(true);
-			// 设置请求方式
 			connection.setRequestMethod("POST");
-			// 设置接收数据的格式
 			connection.setRequestProperty("Accept", "application/json");
-			// 设置发送数据的格式
 			connection.setRequestProperty("Content-Type", "application/json");
 			connection.connect();
-			// utf-8编码
 			OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
-			// 发送给接口的json格式内容
 			out.append(params);
 			out.flush();
 			out.close();
-			// 读取响应
-			// 获取长度
 			int length = (int) connection.getContentLength();
 			InputStream is = connection.getInputStream();
 			if (length != -1) {
@@ -67,15 +59,12 @@ public class PatientDetailsInfoOfEMPIServerInterface {
 					System.arraycopy(temp, 0, data, destPos, readLen);
 					destPos += readLen;
 				}
-				// utf-8编码
 				String result = new String(data, "UTF-8");
-				// System.out.println(result);
 				return result;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// 自定义错误信息
 		return "error";
 	}
 	
@@ -93,28 +82,20 @@ public class PatientDetailsInfoOfEMPIServerInterface {
 		String params = "{\"UserId\":\"\",\"Uuids\":[\"" + patStr
 				+ "\"],\"Source\":[\"PatiName\",\"IDCard\",\"InPatientSn\"]}";
 		try {
-			// 创建连接
 			URL url = new URL(strURL);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setDoOutput(true);
 			connection.setDoInput(true);
 			connection.setUseCaches(false);
 			connection.setInstanceFollowRedirects(true);
-			// 设置请求方式
 			connection.setRequestMethod("POST");
-			// 设置接收数据的格式
 			connection.setRequestProperty("Accept", "application/json");
-			// 设置发送数据的格式
 			connection.setRequestProperty("Content-Type", "application/json");
 			connection.connect();
-			// utf-8编码
 			OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
-			// 发送给接口的json格式内容
 			out.append(params);
 			out.flush();
 			out.close();
-			// 读取响应
-			// 获取长度
 			int length = (int) connection.getContentLength();
 			InputStream is = connection.getInputStream();
 			if (length != -1) {
@@ -126,15 +107,12 @@ public class PatientDetailsInfoOfEMPIServerInterface {
 					System.arraycopy(temp, 0, data, destPos, readLen);
 					destPos += readLen;
 				}
-				// utf-8编码
 				String result = new String(data, "UTF-8");
-				// System.out.println(result);
 				return result;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// 自定义错误信息
 		return "error";
 	}
 

@@ -30,34 +30,28 @@ public class LoginRws {
 	public static String loginAndToRwsByPhantomJSDriver(PhantomJSDriver driver,String rwsUrl,
 			String loginName,String pwd) {
 		driver.get(rwsUrl);
-		// 等待
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		// 登录
 		driver.findElementById("loginName").clear();
 		driver.findElementById("loginName").sendKeys(loginName);
 		driver.findElementById("pwd").clear();
 		driver.findElementById("pwd").sendKeys(pwd);
 		driver.findElementById("login").click();
-		// 等待
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
 		String returnString=null;
 		//String text = driver.findElementByClassName("u-btn u-new").getText();
 		//坑：WerbDriver中by.className() 不支持含有空格的class名称。采用通配符：
 		String text = driver.findElementByClassName("u-new").getText();
-		
 		if ("新建项目".equals(text)) {
 			returnString = "登陆成功";
 		}
-		
 		return returnString;
 	}
 

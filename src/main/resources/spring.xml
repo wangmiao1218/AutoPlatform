@@ -25,7 +25,7 @@
 	<!-- 整合mybatis -->
 	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath:com/gennlife/crf/mapper/*.xml" />
+		<property name="mapperLocations" value="classpath:com/gennlife/autoplatform/mapper/*.xml" />
 		<!-- 分页插件开始 -->
 		<property name="typeAliasesPackage" value="com.isea533.ssm.model" />
 		<property name="plugins">
@@ -80,7 +80,7 @@
 	
 	<!-- 配置切面 -->
 	<aop:config>
-		<aop:pointcut id="transactionPointcut" expression="execution (* com.gennlife.crf.service..*Impl.*(..))"/>
+		<aop:pointcut id="transactionPointcut" expression="execution (* com.gennlife.autoplatform.service..*Impl.*(..))"/>
 		<aop:advisor advice-ref="transactionAdvice" pointcut-ref="transactionPointcut"/>
 	</aop:config>
 	
@@ -99,7 +99,7 @@
 	    <!-- 每5秒执行一次(测试：/5 * * * * ?) --> 
 	    <!-- <property name="cronExpression" value="/5 * * * * ?" /> -->
 	    <!-- 每5分钟执行一次 -->
-	    <property name="cronExpression" value="0 0/5 * * * ?" />
+	    <!-- <property name="cronExpression" value="0 0/5 * * * ?" /> -->
 	    <!--每天晚上12点导出  -->
 	  	<!-- <property name="cronExpression" value="0 0 0 * * ?" /> -->
 	</bean>
@@ -126,7 +126,7 @@
     </bean> -->
 
 	<!-- 设置自定义的realm -->
-    <!-- <bean id="shiroRealm" class="com.gennlife.crf.realm.CrfRealm">
+    <!-- <bean id="shiroRealm" class="com.gennlife.autoplatform.realm.CrfRealm">
     	<property name="credentialsMatcher">
     		<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
     			指定好加密算法

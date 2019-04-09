@@ -33,14 +33,10 @@ public class ExcelUtils {
     * @throws 
     */
     public static Boolean checkSheetOfExcelExist(Excel excel) {  
-        // 构造Workbook
     	Workbook workbook = excel.getWorkbook();  
-    	
         if (workbook == null){
         	return null;  //不存在
         }  
-        
-        //获取sheet
     	Sheet sheet = workbook.getSheet(excel.getSheetName());
     	return sheet==null ? false:true;
     }  
@@ -55,45 +51,30 @@ public class ExcelUtils {
      * @throws 
      */
     public static List<Map<Integer, String>> readExcelOfListReturnListMap(Excel excel,Integer beginCell) {  
-    	// 构造Workbook
     	Workbook workbook = excel.getWorkbook();  
-    	
     	if (workbook == null){
     		return null;  //不存在
     	}  
-    	
-    	//获取sheet
     	Sheet sheet = workbook.getSheet(excel.getSheetName());
-    	
     	List<Map<Integer, String>> list = new ArrayList<Map<Integer, String>>();
-    	// 循环读取指定列数据
     	for ( int rowNum= 0; rowNum <= sheet.getLastRowNum(); rowNum++) {
     		Row row = sheet.getRow(rowNum);
-    		
     		Cell cell = null;
-    		//判断是否为空
     		if (row!=null) {
-    			//指定 列beginCell
     			cell = row.getCell(beginCell);
     		}
-    		
     		String value=null;
-    		//判断是否为空
     		if (cell!=null) {
     			cell.setCellType(HSSFCell.CELL_TYPE_STRING);
     			value = cell.getStringCellValue();
     		}
-    		
-    		//将值放入list中
     		if (value!=null && !"".equals(value) && !" ".equals(value)) { 
     			Map<Integer, String> map =new HashMap<Integer, String>();
     			map.put(rowNum, value);
     			list.add(map);
     		}
-    		
     	}
     	return list;
-    	
     }  
     
     
@@ -106,43 +87,28 @@ public class ExcelUtils {
      * @throws 
      */
     public static Map<Integer, String> readExcelOfListReturnMap(Excel excel,Integer beginCell) {  
-    	// 构造Workbook
     	Workbook workbook = excel.getWorkbook();  
-    	
     	if (workbook == null){
     		return null;  //不存在
     	}  
-    	
-    	//获取sheet
     	Sheet sheet = workbook.getSheet(excel.getSheetName());
-    	
     	Map<Integer, String> map = new HashedMap<Integer, String>();
-    	// 循环读取指定列数据(已经除去表头)
     	for ( int rowNum= 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
     		Row row = sheet.getRow(rowNum);
-    		
     		Cell cell = null;
-    		//判断是否为空
     		if (row!=null) {
-    			//指定 列beginCell
     			cell = row.getCell(beginCell);
     		}
-    		
     		String value=null;
-    		//判断是否为空
     		if (cell!=null) {
     			cell.setCellType(HSSFCell.CELL_TYPE_STRING);
 				value = cell.getStringCellValue();
     		}
-    		
-    		//将值放入list中
     		if (value!=null && !"".equals(value) && !" ".equals(value)) { 
     			map.put(rowNum, value);
     		}
-    		
     	}
     	return map;
-    	
     }  
     
     
@@ -156,36 +122,23 @@ public class ExcelUtils {
      * @throws 
      */
     public static List<String> readExcelOfList(Excel excel,Integer beginCell) {  
-    	// 构造Workbook
     	Workbook workbook = excel.getWorkbook();  
-    	
     	if (workbook == null){
     		return null;  //不存在
     	}  
-    	
-    	//获取sheet
     	Sheet sheet = workbook.getSheet(excel.getSheetName());
-    	
     	List<String> list = new ArrayList<String>();
-    	// 循环读取指定列数据(已经除去表头:rowNum=1)
     	for ( int rowNum= 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
     		Row row = sheet.getRow(rowNum);
-    		
     		Cell cell = null;
-    		//判断是否为空
     		if (row!=null) {
-    			//指定 列beginCell
     			cell = row.getCell(beginCell);
     		}
-    		
     		String value=null;
-    		//判断是否为空
     		if (cell!=null) {
     			cell.setCellType(HSSFCell.CELL_TYPE_STRING);
     			value = cell.getStringCellValue();
     		}
-    		
-    		//将值放入list中
     		if (value!=null && !"".equals(value) && !" ".equals(value)) {  
     			list.add(value);
     		}
@@ -205,41 +158,28 @@ public class ExcelUtils {
      */
     public static List<String> readExcelOfOneLine(Excel excel,Integer beginRow) { 
     	List<String> list = new ArrayList<String>();
-    	// 构造Workbook
     	Workbook workbook = excel.getWorkbook();  
-    	
     	if (workbook == null){
     		return null;  //不存在
     	}  
-    	
-    	//获取sheet
     	Sheet sheet = workbook.getSheet(excel.getSheetName());
     	Row row = sheet.getRow(beginRow);
-        // 循环读取一行中数据，row.getLastCellNum()：最大列号
   		for ( int cellNum= 0; cellNum <= row.getLastCellNum(); cellNum++) {
   			Cell cell = null;
-  			//判断是否为空
   			if (row!=null) {
-  				//指定 列beginCell
   	 			cell = row.getCell(cellNum);
  			}
   			String value=null;
-  			//判断是否为空
   			if (cell!=null) {
   				cell.setCellType(HSSFCell.CELL_TYPE_STRING);
   				value = cell.getStringCellValue();
  			}
-  			
-  			//将值放入list中
 			if (value!=null && !"".equals(value) && !" ".equals(value)) {  
 				list.add(value);
 			}
   		}
-		
     	return list;
     }  
-    
-    
     
     
     /** 
@@ -252,42 +192,31 @@ public class ExcelUtils {
      * @throws 
      */
     public static List<String> readExcelOfTwoList(Excel excel,Integer oneCell,Integer twoCell) {  
-    	// 构造Workbook
     	Workbook workbook = excel.getWorkbook();  
     	if (workbook == null){
     		return null;  //不存在
     	}  
-    	//获取sheet
     	Sheet sheet = workbook.getSheet(excel.getSheetName());
-    	
     	List<String> chNameslist = new ArrayList<String>();
-    	// 循环读取指定列数据(从第二行开始，除去表头)
     	for ( int rowNum= 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
     		Row row = sheet.getRow(rowNum);
-    		
     		Cell cell1 = null;
     		Cell cell2 = null;
-    		//判断是否为空
     		if (row!=null) {
-    			//指定 列oneCell,twoCell的cell
     			cell1 = row.getCell(oneCell);
     			cell2 = row.getCell(twoCell);
     		}
-    		
     		String value=null;
     		//==============此处有坑，不要轻易改！！！！！================
-    		//判断第一列是否为空,不为空则获取值，为空则判断第二列
     		if (cell1!=null) {
     			cell1.setCellType(HSSFCell.CELL_TYPE_STRING);
     			value = cell1.getStringCellValue();
-	    		//将值放入list中
 	    		if (value!=null && !"".equals(value) && !" ".equals(value)) {  
 	    			chNameslist.add(value);
 	    		}else {//若等于""时，则继续判断
 	    			if (cell2!=null) {
 	    				cell2.setCellType(HSSFCell.CELL_TYPE_STRING);
 						value = cell2.getStringCellValue();
-			    		//将值放入list中
 			    		if (value!=null && !"".equals(value) && !" ".equals(value)) {  
 			    			chNameslist.add(value);
 			    		}
@@ -297,7 +226,6 @@ public class ExcelUtils {
     			if (cell2!=null) {
     				cell2.setCellType(HSSFCell.CELL_TYPE_STRING);
 					value = cell2.getStringCellValue();
-		    		//将值放入list中
 		    		if (value!=null && !"".equals(value) && !" ".equals(value)) {  
 		    			chNameslist.add(value);
 		    		}
@@ -320,52 +248,39 @@ public class ExcelUtils {
      * @throws 
      */
     public static List<String> readExcelOfThreeList(Excel excel,Integer oneCell,Integer twoCell,Integer threeCell) {  
-    	// 构造Workbook
     	Workbook workbook = excel.getWorkbook();  
     	if (workbook == null){
     		return null;  //不存在
     	}  
-    	//获取sheet
     	Sheet sheet = workbook.getSheet(excel.getSheetName());
-    	
     	List<String> chNameslist = new ArrayList<String>();
-    	// 循环读取指定列数据(从第二行开始，除去表头)
     	for ( int rowNum= 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
     		Row row = sheet.getRow(rowNum);
-    		
     		Cell cell1 = null;
     		Cell cell2 = null;
     		Cell cell3 = null;
-    		//判断是否为空
     		if (row!=null) {
-    			//指定 列oneCell,twoCell的cell
     			cell1 = row.getCell(oneCell);
     			cell2 = row.getCell(twoCell);
     			cell3 = row.getCell(threeCell);
     		}
-    		
     		String value=null;
     		//==============此处有坑，不要轻易改！！！！！================
-    		//判断第一列是否为空,不为空则获取值，为空则判断第二列
-    		//第一列为空时：
     		if (cell1!=null) {
     			cell1.setCellType(HSSFCell.CELL_TYPE_STRING);
     			value = cell1.getStringCellValue();
-	    		//将值放入list中
 	    		if (value!=null && !"".equals(value) && !" ".equals(value)) {  
 	    			chNameslist.add(value);
 	    		}else {//若等于""时，则继续判断
 	    			if (cell2!=null) {
 	    				cell2.setCellType(HSSFCell.CELL_TYPE_STRING);
 						value = cell2.getStringCellValue();
-			    		//将值放入list中
 			    		if (value!=null && !"".equals(value) && !" ".equals(value)) {  
 			    			chNameslist.add(value);
 			    		}else {
 			    			if (cell3!=null && !"".equals(cell3)) {
 			    				cell3.setCellType(HSSFCell.CELL_TYPE_STRING);
 		    					value = cell3.getStringCellValue();
-		    		    		//将值放入list中
 		    		    		if (value!=null && !"".equals(value) && !" ".equals(value)) {  
 		    		    			chNameslist.add(value);
 		    		    		}
@@ -375,7 +290,6 @@ public class ExcelUtils {
 	    				if (cell3!=null && !"".equals(cell3)) {
 	    					cell3.setCellType(HSSFCell.CELL_TYPE_STRING);
 	    					value = cell3.getStringCellValue();
-	    		    		//将值放入list中
 	    		    		if (value!=null && !"".equals(value) && !" ".equals(value)) {  
 	    		    			chNameslist.add(value);
 	    		    		}
@@ -386,14 +300,12 @@ public class ExcelUtils {
     			if (cell2!=null) {
     				cell2.setCellType(HSSFCell.CELL_TYPE_STRING);
 					value = cell2.getStringCellValue();
-		    		//将值放入list中
 		    		if (value!=null && !"".equals(value) && !" ".equals(value)) {  
 		    			chNameslist.add(value);
 		    		}else {
 		    			if (cell3!=null && !"".equals(cell3)) {
 		    				cell3.setCellType(HSSFCell.CELL_TYPE_STRING);
 	    					value = cell3.getStringCellValue();
-	    		    		//将值放入list中
 	    		    		if (value!=null && !"".equals(value) && !" ".equals(value)) {  
 	    		    			chNameslist.add(value);
 	    		    		}
@@ -403,7 +315,6 @@ public class ExcelUtils {
     				if (cell3!=null && !"".equals(cell3)) {
     					cell3.setCellType(HSSFCell.CELL_TYPE_STRING);
     					value = cell3.getStringCellValue();
-    		    		//将值放入list中
     		    		if (value!=null && !"".equals(value) && !" ".equals(value)) {  
     		    			chNameslist.add(value);
     		    		}
@@ -412,7 +323,6 @@ public class ExcelUtils {
     		}
     	}
     	return chNameslist;
-    	
     }  
     
     
@@ -426,46 +336,32 @@ public class ExcelUtils {
     * @throws 
     */
     public static Integer searchKeyWordOfOneLine(Excel excel,int beginRow,String keyWord) {  
-    	//先判断keyWord是否为null
     	if (keyWord ==null) {
 			return null;
 		}
-    	
-        // 构造Workbook
     	Workbook workbook = excel.getWorkbook();  
-  
         if (workbook == null){
         	return null;  //不存在
         }  
-        
-        //获取sheet
 		Sheet sheet = workbook.getSheet(excel.getSheetName());
-		
 		Integer returnNum = null;
 		Row row = sheet.getRow(beginRow);
-		
-       // 循环读取一行中数据，row.getLastCellNum()：最大列号
+       //row.getLastCellNum()：最大列号
  		for ( int cellNum= 0; cellNum <= row.getLastCellNum(); cellNum++) {
  			Cell cell = null;
- 			//判断是否为空
  			if (row!=null) {
- 				//指定 列beginCell
  	 			cell = row.getCell(cellNum);
 			}
- 			
  			String value=null;
- 			//判断是否为空
  			if (cell!=null) {
  				cell.setCellType(HSSFCell.CELL_TYPE_STRING);
  				value = cell.getStringCellValue();
 			}
- 			
  			if (keyWord.equals(value)) {  
  				returnNum= cellNum;
  			}
  		}
 		return returnNum;
- 		
     }  
 	
     
@@ -479,46 +375,31 @@ public class ExcelUtils {
      * @throws 
      */
     public static Integer searchKeyWordOfListReturnRowNum(Excel excel,Integer beginCell,String keyWord) {  
-    	//先判断keyWord是否为null
     	if (keyWord ==null) {
     		return null;
     	}
-    	
-    	// 构造Workbook
     	Workbook workbook = excel.getWorkbook();  
-    	
     	if (workbook == null){
     		return null;  //不存在
     	}  
-    	
-    	//获取sheet
     	Sheet sheet = workbook.getSheet(excel.getSheetName());
     	Integer returnNum = null;
-    	
-    	// 循环读取指定列数据
     	for ( int rowNum= 0; rowNum <= sheet.getLastRowNum(); rowNum++) {
     		Row row = sheet.getRow(rowNum);
-    		
     		Cell cell = null;
-    		//判断是否为空
     		if (row!=null) {
-    			//指定 列beginCell
     			cell = row.getCell(beginCell);
     		}
-    		
     		String value=null;
-    		//判断是否为空
     		if (cell!=null) {
     			cell.setCellType(HSSFCell.CELL_TYPE_STRING);
     			value = cell.getStringCellValue();
     		}
-    		
     		if (keyWord.equals(value)) {  
     			returnNum= rowNum;
     		}
     	}
     	return returnNum;
-    	
     }  
     
     
@@ -533,53 +414,30 @@ public class ExcelUtils {
      * @throws 
      */
     public static Integer searchKeyWordOfListByOrderDescReturnRowNum(Excel excel,Integer beginRow,Integer beginCell,String keyWord) {  
-    	//先判断keyWord是否为null
     	if (keyWord ==null) {
     		return null;
     	}
-    	
-    	// 构造Workbook
     	Workbook workbook = excel.getWorkbook();  
-    	
     	if (workbook == null){
     		return null;  //不存在
     	}  
-    	
-    	//获取sheet
     	Sheet sheet = workbook.getSheet(excel.getSheetName());
-    	
     	Integer returnNum = null;
-    	// 循环读取指定列数据
     	for ( int rowNum=beginRow; rowNum >= 0; rowNum--) {
     		Row row = sheet.getRow(rowNum);
-    		
     		Cell cell = null;
-    		//判断是否为空
     		if (row!=null) {
-    			//指定 列beginCell
     			cell = row.getCell(beginCell);
     		}
-    		
     		String value=null;
-    		//判断是否为空
     		if (cell!=null) {
     			cell.setCellType(HSSFCell.CELL_TYPE_STRING);
     			value = cell.getStringCellValue();
     		}
-    		
-    		//逆序获取第一个有值且相等的，停止
     		if (value!=null && keyWord.equals(value)) {
     			returnNum= rowNum;
     			break;
     		}
-    		
-    		/*
-    		//若value为空，则返回null
-    		if (value==null && !keyWord.equals(value)) {
-    			returnNum=null;
-			}
-			*/
-    		
     	}
     	return returnNum;
     	
@@ -595,49 +453,33 @@ public class ExcelUtils {
      * @throws 
      */
     public static Map<Integer, String> searchValueOfListByOrder(Excel excel,Integer beginCell) {  
-    	// 构造Workbook
     	Workbook workbook = excel.getWorkbook();  
-    	
     	if (workbook == null){
     		return null;  //不存在
     	}  
-    	
-    	//获取sheet
     	Sheet sheet = workbook.getSheet(excel.getSheetName());
-    	
     	Map<Integer,String> map = new HashedMap<Integer, String>();
-    	// 循环读取指定列数据
     	for ( int rowNum= 0; rowNum <= sheet.getLastRowNum(); rowNum++) {
     		Row row = sheet.getRow(rowNum);
-    		
     		Cell cell = null;
-    		//判断是否为空
     		if (row!=null) {
-    			//指定 列beginCell
     			cell = row.getCell(beginCell);
     		}
-    		
     		String value =null;
-    		//判断是否为空
     		if (cell!=null) {
     			cell.setCellType(HSSFCell.CELL_TYPE_STRING);
     			value = cell.getStringCellValue();
     		}
-    		
-    		//除去表头
     		if ("联动".equals(value)) {
 				continue;
 			}
-    		
     		//获取第一个有值，停止
     		if (value!=null && !"".equals(value) && !" ".equals(value)) {
     			map.put(rowNum, value);
 				break;
 			}
-    		
     	}
     	return map;
-    	
     }  
     
   
@@ -651,44 +493,30 @@ public class ExcelUtils {
      * @throws 
      */
     public static Map<Integer, String> searchValueOfListByOrderDesc(Excel excel,Integer beginRow,Integer beginCell) {  
-    	// 构造Workbook
     	Workbook workbook = excel.getWorkbook();  
-    	
     	if (workbook == null){
     		return null;  //不存在
     	}  
-    	
-    	//获取sheet
     	Sheet sheet = workbook.getSheet(excel.getSheetName());
-    	
         Map<Integer,String> map = new HashedMap<Integer, String>();
-    	// 循环读取指定列数据
     	for ( int rowNum =beginRow;rowNum>=0; rowNum--) {
     		Row row = sheet.getRow(rowNum);
-    		
     		Cell cell = null;
-    		//判断是否为空
     		if (row!=null) {
-    			//指定 列beginCell
     			cell = row.getCell(beginCell);
     		}
-    		
     		String value=null;
-    		//判断是否为空
     		if (cell!=null) {
     			cell.setCellType(HSSFCell.CELL_TYPE_STRING);
     			value = cell.getStringCellValue();
     		}
-    		
     		//逆序获取第一个有值，停止
     		if (value!=null && !"".equals(value) && !" ".equals(value)) {
     			map.put(rowNum, value);
 				break;
 			}
-    		
     	}
     	return map;
-    	
     }  
     
     /** 
@@ -701,43 +529,30 @@ public class ExcelUtils {
      * @throws 
      */
     public static Integer searchValueOfListByOrderDescReturnRowNum(Excel excel,Integer beginRow,Integer beginCell) {  
-    	// 构造Workbook
     	Workbook workbook = excel.getWorkbook();  
-    	
     	if (workbook == null){
     		return null;  //不存在
     	}  
-    	
-    	//获取sheet
     	Sheet sheet = workbook.getSheet(excel.getSheetName());
     	Integer rowNumInteger=null;
-    	// 循环读取指定列数据
     	for ( int rowNum =beginRow;rowNum>=0; rowNum--) {
     		Row row = sheet.getRow(rowNum);
-    		
     		Cell cell = null;
-    		//判断是否为空
     		if (row!=null) {
     			//指定 列beginCell
     			cell = row.getCell(beginCell);
     		}
-    		
     		String value=null;
-    		//判断是否为空
     		if (cell!=null) {
     			cell.setCellType(HSSFCell.CELL_TYPE_STRING);
     			value = cell.getStringCellValue();
     		}
-    		
-    		//逆序获取第一个有值，停止
     		if (value!=null && !"".equals(value) && !" ".equals(value)) {
     			rowNumInteger=rowNum;
     			break;
     		}
-    		
     	}
     	return rowNumInteger;
-    	
     }  
     
     
@@ -752,48 +567,33 @@ public class ExcelUtils {
     * @throws 
     */
     public static Integer searchValueOfListBetweenTwoRowNumByOrderDescReturnRowNum(Excel excel,Integer smallRow,Integer bigRow,Integer beginCell) {  
-    	// 构造Workbook
     	Workbook workbook = excel.getWorkbook();  
-    	
     	if (workbook == null){
     		return null;  //不存在
     	}  
-    	
-    	//获取sheet
     	Sheet sheet = workbook.getSheet(excel.getSheetName());
     	Integer rowNumInteger=null;
-    	// 循环读取指定列数据
     	for ( int rowNum =bigRow;rowNum >= smallRow; rowNum--) {
     		Row row = sheet.getRow(rowNum);
-    		
     		Cell cell = null;
-    		//判断是否为空
     		if (row!=null) {
-    			//指定 列beginCell
     			cell = row.getCell(beginCell);
     		}
     		
     		String value=null;
-    		//判断是否为空
     		if (cell!=null) {
     			cell.setCellType(HSSFCell.CELL_TYPE_STRING);
     			value = cell.getStringCellValue();
     		}
-    		
-    		//逆序获取第一个有值，停止
     		if (value!=null && !"".equals(value) && !" ".equals(value)) {
     			rowNumInteger=rowNum;
     			break;
     		}
-    		
-    		//若value为空，则返回null
     		if (value==null) {
     			rowNumInteger=null;
 			}
-    		
     	}
     	return rowNumInteger;
-    	
     }  
     
 	
@@ -808,29 +608,20 @@ public class ExcelUtils {
 	*/
 	public static String readContent(Excel excel, int beginRow, int beginCell) {
 		Workbook workbook = excel.getWorkbook();
-		
 		if (workbook == null){
         	return null;  //不存在
         }  
-		
 		Sheet sheet = workbook.getSheet(excel.getSheetName());
-		//获取row
 		Row row = sheet.getRow(beginRow);
-		
 		Cell cell = null;
-		//判断是否为空
 		if (row!=null) {
-			//指定 列beginCell
 			cell = row.getCell(beginCell);
 		}
-			
 		String value=null;
-		//判断是否为空
 		if (cell!=null) {
 			cell.setCellType(HSSFCell.CELL_TYPE_STRING);
 			value = cell.getStringCellValue();
 		}
-		
 		return value;
 	}
 
@@ -847,44 +638,29 @@ public class ExcelUtils {
 	*/
 	public static String readTwoContentAndJudge(Excel excel, Integer beginRow, Integer beginCell,Integer endCell) {
 		Workbook workbook = excel.getWorkbook();
-		
 		if (workbook == null){
         	return null;  //不存在
         } 
-		
 		Sheet sheet = workbook.getSheet(excel.getSheetName());
-		//根据行获取row
 		Row row = sheet.getRow(beginRow);
-		
-		//分别根据列号获取对应的cell
 		Cell beginCellContent = row.getCell(beginCell);
 		Cell endCellContent = row.getCell(endCell);
-		
 		String valueString=null;
-		
-		//判断：都为空，也为pass
 		if (beginCellContent==null && endCellContent ==null) {
 			valueString="pass";
 		}
-		
-		//任意一个为空则返回no
 		if ((beginCellContent==null && endCellContent !=null) || (beginCellContent!=null && endCellContent ==null) ) {
 			valueString="no";
 		}
-				
-		//都不为null时，进行比较
 		if (beginCellContent != null && endCellContent != null) {
 			String beginCellStr = ListAndStringUtils.trimString(beginCellContent.toString());
 			String endCellStr = ListAndStringUtils.trimString(endCellContent.toString());
-			
-			//判断
 			if (beginCellStr.equals(endCellStr)) {
 				valueString="pass";
 			}else {
 				valueString="no";
 			}
 		}
-		
 		return valueString;
 	}
 
@@ -900,32 +676,19 @@ public class ExcelUtils {
 	* @throws 
 	*/
 	public static void writeAndSaveContent(Excel excel,String newContent, int beginRow, int beginCell) {
-		//获取行
 		Workbook workbook = excel.getWorkbook();
 		Sheet sheet = workbook.getSheet(excel.getSheetName());
 		Row row = sheet.getRow(beginRow);
-
 		if (null == row) {
-			// 如果不做空判断，你必须让你的模板文件画好边框，beginRow和beginCell必须在边框最大值以内
-			// 否则会出现空指针异常
 			row = sheet.createRow(beginRow);
 		}
-		
 		Cell cell = row.getCell(beginCell);
 		if (null == cell) {
 			cell = row.createCell(beginCell);
 		}
-		// 设置存入内容为字符串
 		cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-
-		// 向单元格中放入值
 		cell.setCellValue(newContent);
-
-		// 保存
-		// 根据参数传入的数据文件路径和文件名称，组合出Excel数据文件的绝对路径，声明一个File文件对象
 		File file = new File(excel.getFilePath() + "\\" + excel.getFileName());
-		
-		//建立输出流
 		FileOutputStream fos=null;
 		try {
 			fos = new FileOutputStream(file);
@@ -946,7 +709,6 @@ public class ExcelUtils {
 				e.printStackTrace();
 			}
 		}
-	
 	}
 
 
@@ -960,37 +722,21 @@ public class ExcelUtils {
 	* @throws 
 	*/
 	public static void writeOneListAndSaveContent(Excel excel,List<String> newContentList, int beginCell) {
-		//获取行
 		Workbook workbook = excel.getWorkbook();
-		
 		for (int i =0; i < newContentList.size(); i++) {
 			Sheet sheet = workbook.getSheet(excel.getSheetName());
-			//设置行（除去表头）
 			Row row = sheet.getRow(i+1);
-
 			if (null == row) {
-				// 如果不做空判断，你必须让你的模板文件画好边框，beginRow和beginCell必须在边框最大值以内
-				// 否则会出现空指针异常
 				row = sheet.createRow(newContentList.size());
 			}
-			
 			Cell cell = row.getCell(beginCell);
 			if (null == cell) {
 				cell = row.createCell(beginCell);
 			}
-			
-			// 设置存入内容为字符串
 			cell.setCellType(HSSFCell.CELL_TYPE_STRING);
-	
-			// 向单元格中放入值
 			cell.setCellValue(newContentList.get(i));
 		}
-		
-		// 保存
-		// 根据参数传入的数据文件路径和文件名称，组合出Excel数据文件的绝对路径，声明一个File文件对象
 		File file = new File(excel.getFilePath() + "\\" + excel.getFileName());
-		
-		//建立输出流
 		FileOutputStream fos=null;
 		try {
 			fos = new FileOutputStream(file);
@@ -1012,6 +758,5 @@ public class ExcelUtils {
 			}
 		}
 	}
-
 	
 }

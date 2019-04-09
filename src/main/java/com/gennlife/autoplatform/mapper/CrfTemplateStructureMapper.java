@@ -2,7 +2,6 @@ package com.gennlife.autoplatform.mapper;
 
 import java.util.List;
 
-import com.gennlife.autoplatform.bean.CrfTemplateAnzhenXinXueguan;
 import com.gennlife.autoplatform.bean.CrfTemplateStructure;
 
 /**

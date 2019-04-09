@@ -9,9 +9,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Iterator;
 
-import org.json.JSONArray;
+import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,7 +26,7 @@ import com.jayway.jsonpath.ReadContext;
  * @Date: 2017年11月27日 下午4:32:42
  */
 public class JsonUtils {
-	
+	private static Logger logger = Logger.getLogger(JsonUtils.class); 
 	
 	/** 
 	* @Title: analysisCrfdataPathAndReturnNewValue 
@@ -41,9 +40,8 @@ public class JsonUtils {
 	public static String analysisCrfdataPathAndReturnNewValue(String jsonStr,String oldJsonPath){ 
 		String jsonPath=oldJsonPath.replace("data.visits.", "");
 		jsonPath=jsonPath.substring(0,jsonPath.lastIndexOf("."));
-		System.out.println("去掉首尾的路径："+jsonPath);
+		logger.info("去掉首尾的路径："+jsonPath);
 		ReadContext context = JsonPath.parse(jsonStr);
-		//分割
 		String[] strings = null;
 		if (jsonPath.contains(".")) {
 			strings = jsonPath.split("\\.");
@@ -51,11 +49,8 @@ public class JsonUtils {
 				strings[i] = strings[i].trim();
 			}
 		}
-		
-		System.out.println("路径长度："+strings.length);
-		
+		logger.info("路径长度："+strings.length);
 		String newJsonPath=null;
-		
 		//20180412：新增：表.字段
 		if (strings.length==2) {
 			newJsonPath=strings[0]+"."+strings[1]+".value";
@@ -64,7 +59,6 @@ public class JsonUtils {
 		//表.第二组.字段
 		//inpatientDetails.IP_CC.IP_CHIEF_COMPLAINT
 		if (strings.length==3) {
-			//判断第二组是否为数组
 			Object obj = context.read(strings[0]+"."+strings[1]);
 			if(obj instanceof ArrayList){ 
 				newJsonPath=strings[0]+"."+strings[1]+"[*]"+"."+strings[2]+".value";
@@ -76,13 +70,10 @@ public class JsonUtils {
 		//表.第二组.第三组.字段
 		//inpatientDetails.IP_CANCER_HX.IPH_CANCER.IPH_CANCER_NAME
 		if (strings.length==4) {
-			//判断第二组是否为数组
 			Object obj2 = context.read(strings[0]+"."+strings[1]);
 			if(obj2 instanceof ArrayList){ 
-				//第三组肯定为非数组
 				newJsonPath=strings[0]+"."+strings[1]+"[*]"+"."+strings[2]+"."+strings[3]+".value";
 			} else{
-				//进而判断第三组是否为数组
 				Object obj3 = context.read(strings[0]+"."+strings[1]+"."+strings[2]);
 				if (obj3 instanceof ArrayList) {
 					newJsonPath=strings[0]+"."+strings[1]+"."+strings[2]+"[*]"+"."+strings[3]+".value";
@@ -91,49 +82,10 @@ public class JsonUtils {
 				}
 			}
 		}
-		System.out.println("新组装后的路径："+newJsonPath);
+		logger.info("新组装后的路径："+newJsonPath);
 		return context.read(newJsonPath).toString();
     } 
 
-
-	/**
-	 * @Title: insertPatAndValueReturnNewJSONObject
-	 * @Description: 插入patContent和字段的值，返回新的JSONObject（使用少量的json时使用，未完成）
-	 * @param: @param baseJson
-	 * @param: @param patPath
-	 * @param: @param patContent
-	 * @param: @param strs
-	 * @param: @param insertContent
-	 * @param: @return
-	 * @return: JSONObject
-	 * @throws
-	 */
-	//有问题，还没完成
-	public static JSONObject insertPatAndValueReturnNewJSONObject(
-			JSONObject baseJson, String patientDetail, String insertContent,
-			String patPath, String patContent) throws JSONException {
-		// 定义中间JSONObject
-		JSONObject middleJsonObject = new JSONObject();
-		// 用.分割后，转换成数组
-		String[] strings = null;
-		if (patientDetail.contains(".")) {
-			strings = patientDetail.split("\\.");
-			for (int i = 0; i < strings.length; i++) {
-				strings[i] = strings[i].trim();
-			}
-		}
-		// 添加到baseJson
-		for (int i = 0; i < strings.length; i++) {
-			// strings[i];
-
-		}
-
-		// 最后统一加pat
-		String[] patSplit = patPath.split("\\.");
-		((JSONObject) baseJson.get(patSplit[0])).put(patSplit[1], patContent);
-
-		return baseJson;
-	}
 
 	
 	/**
@@ -151,9 +103,7 @@ public class JsonUtils {
 	public static JSONObject updatePatAndValueReturnNewJSONObject(
 			JSONObject baseJson, String patPath, String patContent,
 			String[] strs, String insertContent) throws JSONException {
-		// 定义中间JSONObject
 		JSONObject middleJsonObject = new JSONObject();
-		// 长度进行判断
 		switch (strs.length) {
 		case 0:
 			break;
@@ -184,10 +134,8 @@ public class JsonUtils {
 		default:
 			break;
 		}
-		// 最后统一加pat
 		String[] patSplit = patPath.split("\\.");
 		((JSONObject) baseJson.get(patSplit[0])).put(patSplit[1], patContent);
-
 		return baseJson;
 	}
 
@@ -210,7 +158,6 @@ public class JsonUtils {
 			inputStreamReader = new InputStreamReader(fileInputStream, "UTF-8");
 			reader = new BufferedReader(inputStreamReader);
 			String tempString = null;
-
 			while ((tempString = reader.readLine()) != null) {
 				laststr += tempString;
 			}

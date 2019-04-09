@@ -1,9 +1,7 @@
 package com.gennlife.autoplatform.utils;
 
 import java.io.FileOutputStream;  
-import java.io.IOException;  
 import com.lowagie.text.Document;  
-import com.lowagie.text.DocumentException;  
 import com.lowagie.text.pdf.PdfCopy;  
 import com.lowagie.text.pdf.PdfImportedPage;  
 import com.lowagie.text.pdf.PdfReader;  

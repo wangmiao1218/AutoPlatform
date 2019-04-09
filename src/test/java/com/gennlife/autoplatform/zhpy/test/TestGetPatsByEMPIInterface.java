@@ -3,7 +3,7 @@ package com.gennlife.autoplatform.zhpy.test;
 import org.junit.Test;
 
 import com.gennlife.autoplatform.bean.Excel;
-import com.gennlife.autoplatform.zhpy.GetPatsByEMPIInterface;
+import com.gennlife.autoplatform.empitools.GetPatsByEMPIInterface;
 
 public class TestGetPatsByEMPIInterface {
 

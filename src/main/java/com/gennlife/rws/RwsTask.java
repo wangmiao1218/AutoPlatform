@@ -23,13 +23,8 @@ public class RwsTask {
 	public static final String firstProjectXpath="//*[@id='item-list-container']/tbody/tr[1]/td[2]/a";
 	public static final String projectId="rws_defined.html";
 	public static final String firstIndexXpath=" //*[@id='app']/div/div/div/div[2]/div/div[1]/table/tbody/tr[1]/td[2]/a";
-	//保存指标的按钮的xpath
 	public static final String indexToSaveButtonXpath="//*[@id='model']/div[2]/div/div[2]/button[2]";
-	//保存事件的按钮的xpath
-	//public static final String eventToSaveButtonXpath=" //*[@id='app']/div/div/div[2]/div/button[2]";
-	//第一个条件的日期输入框
 	public static final String firstConditionDatepickerInputXpath="html/body/div[2]/div[2]/div/div/div[1]/div/div[2]/div/div[2]/div[2]/div/div/div/div[3]/div/input";
-	//日期控件的“现在时间”按钮
 	public static final String presentTimeButtonXpath="html/body/div[3]/div[3]/button[1]";
 	
 	
@@ -55,10 +50,7 @@ public class RwsTask {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
-			//到列表中第一个项目界面
 			driver.findElementByXPath(firstProjectXpath).click();
-			//到列表中第一个指标或事件界面
 			driver.findElementById(projectId).click();
 			try {
 				Thread.sleep(2000);
@@ -73,37 +65,21 @@ public class RwsTask {
 				e.printStackTrace();
 			}
 			logger.info("To firstIndex success");
-			/*
-			 * 页面没有切换，所以不用切换到新的窗口
-			// 得到当前窗口的set集合,将set集合存入list对象, 切换到弹出的新窗口
-			Set<String> winHandels = driver.getWindowHandles();
-			List<String> it = new ArrayList<String>(winHandels);
-			driver.switchTo().window(it.get(1));
-			*/
-			
-			// 获取保存指标按钮，若存在则在添加页面
 			String text = driver.findElementByXPath(indexToSaveButtonXpath).getText();
-			//
 			if ("保存指标".equals(text)) {
-				//修改指标_修改第一个当前时间，这样保证进行最新的计算
-				//点击第一个条件的日期输入框
 				driver.findElementByXPath(firstConditionDatepickerInputXpath).click();
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				
-				//点击现在时间，更新条件
 				driver.findElementByXPath(presentTimeButtonXpath).click();
-				//点保存指标
 				driver.findElementByXPath(indexToSaveButtonXpath).click();
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				
 				String value = driver.findElementByClassName("u-modal-alert-text").getText();
 				if ("保存成功".equals(value)) {
 					returnString = "保存成功";
@@ -130,7 +106,6 @@ public class RwsTask {
 			@Override
 			public String call() throws Exception {
 				PhantomJSDriver driver = CreateWebDriver.createWebDriverByPhantomJSDriver();
-				//执行登录并改条件执行计算
 				String value = RwsTask.createRwsTask(driver, rwsUrl,loginName, pwd);
 				QuitWebDriver.quitWebDriverByPhantomJSDriver(driver);
 				if ("保存成功".equals(value)) {
@@ -142,6 +117,5 @@ public class RwsTask {
 			}
 		};
 	}
-	
 	
 }

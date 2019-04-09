@@ -44,15 +44,9 @@ public class SysRoleController {
 		if(sysRole != null){
 			map.put("roleName", sysRole.getRoleName());
 		}
-		//设置分页信息
 		PageHelper.startPage(page, limit);
-		// 获取集合
 		List<SysRole> list = sysRoleService.geRoleList(map);
-		// 用分页类包装集合
 		PageInfo<SysRole> pageInfo = new PageInfo<SysRole>(list);
-		
-		// 转化为JSON数据并返回
-		//return JSON.toJSONString(pageInfo);
 		return pageInfo;
 	}
 	

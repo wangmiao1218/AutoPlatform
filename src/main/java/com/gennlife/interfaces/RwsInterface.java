@@ -41,17 +41,12 @@ public class RwsInterface {
 	* @throws 
 	*/
 	public static JSONObject doGet(CloseableHttpClient httpClient,String url) throws Exception {
-		// get形式的访问
 		HttpGet httpGet = new HttpGet(url);
-		// 执行请求
 		CloseableHttpResponse response = null;
 		HttpEntity entity = null;
 		try {
 			response = httpClient.execute(httpGet);
-			
-			// 打印请求的状态码 请求成功为200
 			logger.info("请求的状态码:"+response.getStatusLine().getStatusCode());
-			// 打印请求的实体内容 返回json格式
 			entity = response.getEntity();
 			
 			/*
@@ -67,7 +62,6 @@ public class RwsInterface {
 			
 			// 方法一 官方不推荐
 			if (entity != null) {
-				// 输出更详细的抓取内容(html格式)
 				return new JSONObject(EntityUtils.toString(entity, "utf-8"));
 			}
 			
@@ -111,9 +105,6 @@ public class RwsInterface {
 	public static JSONObject rwsCalculate(CloseableHttpClient httpClient,String url,
 			String sessionId,String timeStr) throws JSONException {
 		JSONObject calculateResultObject = null;
-		//读取基础文本文件，并转为json（暂时不使用，便于改条件,进行计算）
-		//JSONObject json = JsonUtils.readFileContentReturnJson("C:\\Users\\www\\Desktop\\rws.json");
-		
 		String params="{\"active\":{\"isTmp\":0,\"dataGroup\":[\"patient_info\",\"visit_info\","
 				+ "\"inspection_reports\"],\"sortKey\":\"visits.inspection_reports.REPORT_TIME\","
 				+ "\"activeType\":1,\"confirmActiveId\":\"9BA19E5522694F3C9BFCBD0AE9BA68B9\","
@@ -149,33 +140,19 @@ public class RwsInterface {
 				+ "\"crfId\":\"EMR\",\"isSearch\":0}";
 		
 		HttpPost httpPost = null;
-		// 定义返回内容
 		String responses = null;
 		try {
-			// 创建Post请求的实例，并传入待连接的地址
 			httpPost = new HttpPost(url);
 			logger.info("请求地址："+httpPost);
-
-			// 设置请求头
 			httpPost.addHeader("content-type","application/json; charset=UTF-8");
-			// 新增请求头的参数session
 			httpPost.addHeader("session", sessionId);
-			
-			//传入请求参数
 			StringEntity se = new StringEntity(params);
 			httpPost.setEntity(se);
-			
-			// 执行post请求，调用第一步中创建好的实例的execute方法来执行第二步中创建好的method实例
 			HttpResponse response = httpClient.execute(httpPost);
-			// 读response，获取响应实体
 			HttpEntity entity = response.getEntity();
-			// 读入内容流，并以字符串形式返回
 			String postResult = EntityUtils.toString(entity, "UTF-8");
-			// 把Unicode编码转中文
 			responses = StringEscapeUtils.unescapeJava(postResult);
 			if (responses != null) {
-				// 打印响应内容
-				//System.out.println("接口响应：" + responses + "\n"); // 打印响应内容
 				EntityUtils.consume(entity);// 关闭内容流
 			}
 		} catch (ClientProtocolException e) {
@@ -185,24 +162,17 @@ public class RwsInterface {
 		} finally {
 			try {
 				if (httpPost != null) {
-					// 关闭连接
 					httpPost.releaseConnection();
 				}
-				/*if (httpClient != null) {
-					// 关闭连接(后续请求结果接口 还需要链接，暂不关闭)
-					//httpClient.close();
-				}*/
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
 		if (responses.contains("{")) {
 			calculateResultObject=new JSONObject(responses);
 		}else {
 			calculateResultObject=null;
 		}
-		
 		return calculateResultObject;
 	}
 	
@@ -224,38 +194,23 @@ public class RwsInterface {
 	*/
 	public static JSONObject rwsResult(CloseableHttpClient httpClient,String url,
 			String sessionId,String id) throws Exception {
-		
 		String params="{\"projectId\":\"c5d9cb4d-1c53-40a9-8f3b-76373501ba7e\","
 				+ "\"type\":2,\"activeId\":\""+id+"\"}";
 		
 		HttpPost httpPost = null;
-		// 定义返回内容
 		String responses = null;
 		try {
-			// 创建Post请求的实例，并传入待连接的地址
 			httpPost = new HttpPost(url);
 			logger.info("请求地址："+httpPost);
-
-			// 设置请求头
 			httpPost.addHeader("content-type","application/json; charset=UTF-8");
-			// 新增请求头的参数session
 			httpPost.addHeader("session", sessionId);
-			
-			//传入请求参数
 			StringEntity se = new StringEntity(params);
 			httpPost.setEntity(se);
-			
-			// 执行post请求，调用第一步中创建好的实例的execute方法来执行第二步中创建好的method实例
 			HttpResponse response = httpClient.execute(httpPost);
-			// 读response，获取响应实体
 			HttpEntity entity = response.getEntity();
-			// 读入内容流，并以字符串形式返回
 			String postResult = EntityUtils.toString(entity, "UTF-8");
-			// 把Unicode编码转中文
 			responses = StringEscapeUtils.unescapeJava(postResult);
 			if (responses != null) {
-				// 打印响应内容
-				//System.out.println("接口响应：" + responses + "\n"); // 打印响应内容
 				EntityUtils.consume(entity);// 关闭内容流
 			}
 		} catch (ClientProtocolException e) {
@@ -265,20 +220,13 @@ public class RwsInterface {
 		} finally {
 			try {
 				if (httpPost != null) {
-					// 关闭连接
 					httpPost.releaseConnection();
 				}
-				/*if (httpClient != null) {
-					// 关闭连接
-					//httpClient.close();
-				}*/
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-
 		return new JSONObject(responses);
 	}
-	
 	
 }

@@ -14,13 +14,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
 /**
  * @Description: 文件的处理工具集
  * @author: wangmiao
  * @Date: 2017年8月21日 上午11:39:18
  */
 public class FileUtils {
-
+	private static Logger logger = Logger.getLogger(FileUtils.class); 
 	
 	/** 
 	* @Title: writeContentToFile 
@@ -63,7 +65,6 @@ public class FileUtils {
 			inputStreamReader = new InputStreamReader(fileInputStream, "UTF-8");
 			reader = new BufferedReader(inputStreamReader);
 			String tempString = null;
-
 			while ((tempString = reader.readLine()) != null) {
 				laststr += tempString;
 			}
@@ -90,27 +91,19 @@ public class FileUtils {
 	 * @throws
 	 */
 	public static void readFileAndPrintAllDateStr(File file) {
-		// 日期正则表达式
 		String reg = "[0-9]{4}[-][0-9]{1,2}[-][0-9]{1,2}[ ][0-9]{1,2}[:][0-9]{1,2}[:][0-9]{1,2}";
 		Pattern pattern = Pattern.compile(reg);
-
 		String str = null;
-		// String returnValue = null;
-		// 读取文件
 		FileReader fr = null;
 		BufferedReader br = null;
 		try {
 			fr = new FileReader(file);
 			br = new BufferedReader(fr);
-
 			while ((str = br.readLine()) != null) {
-				// 使用正则表达式判断日期
 				Matcher matcher = pattern.matcher(str);
-
 				if (matcher.find()) {
 					String group = matcher.group();
-					// 打印找到的日期
-					System.out.println(group);
+					logger.info(group);
 				}
 			}
 		} catch (IOException e) {
@@ -131,7 +124,6 @@ public class FileUtils {
 				e.printStackTrace();
 			}
 		}
-		// return returnValue;
 	}
 
 	/**
@@ -145,13 +137,11 @@ public class FileUtils {
 	public static String readFileAndReturnValue(File file, String value) {
 		String str = null;
 		String returnValue = null;
-		// 读取文件
 		FileReader fr = null;
 		BufferedReader br = null;
 		try {
 			fr = new FileReader(file);
 			br = new BufferedReader(fr);
-
 			while ((str = br.readLine()) != null) {
 				if (str.contains(value)) {
 					returnValue = str;
@@ -192,36 +182,23 @@ public class FileUtils {
 	public static void readFileAndReplaceStrToNewFile(File oldfile,
 			String oldStr, String replaceStr, File newFlie) {
 		String str = null;
-		// 读取文件
 		FileReader fr = null;
 		BufferedReader br = null;
-
-		// 写入文件
 		FileWriter fw = null;
 		try {
 			fr = new FileReader(oldfile);
 			br = new BufferedReader(fr);
-
-			// 定义StringBuffer
 			StringBuffer buf = new StringBuffer();
-
-			// 保存该行前面的内容
 			for (int i = 1; (str = br.readLine()) != null
 					&& !str.contains(oldStr); i++) {
 				buf = buf.append(str);
 				buf = buf.append(System.getProperty("line.separator"));
 			}
-
-			// 将内容插入
 			buf = buf.append(replaceStr);
-
-			// 保存该行后面的内容
 			while ((str = br.readLine()) != null) {
 				buf = buf.append(System.getProperty("line.separator"));
 				buf = buf.append(str);
 			}
-
-			// 保存另一个文件
 			fw = new FileWriter(newFlie);
 			PrintWriter pw = new PrintWriter(fw);
 			pw.write(buf.toString().toCharArray());
@@ -305,12 +282,8 @@ public class FileUtils {
 					} else if (delfile.isDirectory()) {
 						deleteFile(fileList[i].getPath());
 					}
-					// 删除子文件夹
 					fileList[i].delete();
 				}
-				// 不删本身文件夹(根文件夹会保留)
-				// 若放这，则会包括根文件夹也全部删除
-				// file.delete();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -357,13 +330,9 @@ public class FileUtils {
 	 */
 	public static List<String> getFileNameList(String filePath) {
 		List<String> fileNameListList = new ArrayList<String>();
-		// 获取目录下所有文件
 		ArrayList<File> files = FileUtils.getFilesArrayList(filePath);
-		// 将其转成\\返回list
 		List<String> list = ListAndStringUtils
 				.arrayListFilesToStringList(files);
-
-		// 处理路径返回文件名
 		for (int i = 0; i < list.size(); i++) {
 			String fileName = ListAndStringUtils
 					.stringToSubstringReturnFileName(list.get(i));

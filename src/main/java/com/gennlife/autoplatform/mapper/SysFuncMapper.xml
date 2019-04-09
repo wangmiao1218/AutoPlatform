@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.gennlife.crf.mapper.SysFuncMapper">
-	<resultMap id="BaseResultMap" type="com.gennlife.crf.bean.SysFunc">
+<mapper namespace="com.gennlife.autoplatform.mapper.SysFuncMapper">
+	<resultMap id="BaseResultMap" type="com.gennlife.autoplatform.bean.SysFunc">
 		<id column="FUNC_ID" property="funcId" jdbcType="DECIMAL" />
 		<result column="RES_ID" property="resId" jdbcType="DECIMAL" />
 		<result column="OPRT_TYPE_ID" property="oprtTypeId" jdbcType="DECIMAL" />
@@ -31,7 +31,7 @@
 	</resultMap>
 
 	<!-- 构造自定义的结果集start -->
-	<resultMap id="FuncResultMap" type="com.gennlife.crf.bean.SysFuncBean">
+	<resultMap id="FuncResultMap" type="com.gennlife.autoplatform.bean.SysFuncBean">
 		<id column="FUNC_ID" property="funcId" jdbcType="DECIMAL" />
 		<result column="FUNC_TYPE" property="funcType" jdbcType="DECIMAL" />
 		<result column="SUP_FUNC_ID" property="supFuncId" jdbcType="DECIMAL" />

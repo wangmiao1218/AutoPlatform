@@ -40,23 +40,14 @@ public class CrfTemplateController {
 	* @throws 
 	*/
 	@ResponseBody
-	//报错：@RequestMapping(value = "getCrfTemplateList", method = RequestMethod.GET)
 	@RequestMapping("getCrfTemplateList")
-	//public PageInfo<CrfTemplate> getCrfTemplateList(CrfTemplate crfTemplate, Integer page,Integer limit) throws Exception {
 	public PageInfo<CrfTemplate> getCrfTemplateList(CrfTemplate crfTemplate,
 			@RequestParam(defaultValue="0",required=false)Integer page,
 			@RequestParam(defaultValue="10",required=false)Integer limit) throws Exception {
-		// 查询列表
 		Map<String, Object> map = new HashedMap<>();
-
-		//空指针异常(加@RequestParam)
 		PageHelper.startPage(page, limit);
-		
 		List<CrfTemplate> list = crfTemplateService.getCrfTemplateList(map);
-
-		// 封装为PageHelper实体
 		PageInfo<CrfTemplate> pageInfo = new PageInfo<>(list);
-
 		return pageInfo;
 	}
 

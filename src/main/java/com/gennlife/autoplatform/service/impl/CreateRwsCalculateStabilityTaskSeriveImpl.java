@@ -32,7 +32,5 @@ public class CreateRwsCalculateStabilityTaskSeriveImpl implements CreateRwsCalcu
 			RwsBean rwsBeanError = new RwsBean(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()),"接口请求失败","接口请求失败");
 			rwsMapper.insertRws(rwsBeanError);
 		}
-		
 	}
-	
 }

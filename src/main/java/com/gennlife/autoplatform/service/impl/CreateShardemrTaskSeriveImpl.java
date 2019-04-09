@@ -25,22 +25,10 @@ public class CreateShardemrTaskSeriveImpl implements CreateShardemrTaskSerive{
 	public void createShardemrTask() throws Exception {
 		logger.info("Create Shardemr thread");
 		ConcurrentHashMap<String,String> shardemrMap = new ConcurrentHashMap<>();
-		//住院号
 		shardemrMap.put("inpatient_sn", "278684");
-		//身份证号
 		shardemrMap.put("patient_id", "320622196104016430");
-		//patient_sn
 		shardemrMap.put("patient_sn", "pat_60d87d6c8b784976ef2dd0df2e541f1c");
-		//shardemrMap.put("scopes", "visits.diagnose");
-		
-		//String shardemr = Shardemr.getShardemr(oauthURL, shardemrURL, oauthTokenMap, shardemrMap);
-		//System.out.println(shardemr);
-		//FileUtils.writeContentToFile("F:/test.json",shardemr);
-		
-		
 		ExecutorService threadPool =Executors.newFixedThreadPool(10); 
-		// 执行任务
-		//Future<String> futureTest = null;
 		for (int i = 1; i < 11; i++) {
 			Future<String> futureTest=threadPool.submit(
 					Shardemr.CreateShardemrCallable(oauthURL, shardemrURL, Shardemr.createOauthTokenMap("testshard"+i), shardemrMap));
@@ -52,14 +40,6 @@ public class CreateShardemrTaskSeriveImpl implements CreateShardemrTaskSerive{
 				e.printStackTrace();
 			}
 		}
-		
-		/*try {  
-			futureTest.get();  
-		} catch (InterruptedException e) {  
-			e.printStackTrace();  
-		} */
-		
-		//关闭线程池和服务  
 		threadPool.shutdown();
 	}
 	

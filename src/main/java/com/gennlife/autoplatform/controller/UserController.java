@@ -48,17 +48,11 @@ public class UserController {
 	public PageInfo<SysOp> getSysOpList(SysOp sysOp,
 			@RequestParam(defaultValue="0",required=false)Integer page,
 			@RequestParam(defaultValue="10",required=false)Integer limit) throws Exception {
-		// 查询列表
 		Map<String, Object> map = new HashedMap<>();
-
-		//空指针异常(加@RequestParam)
 		PageHelper.startPage(page, limit);
 		logger.debug("开始查询用户列表");
 		List<SysOp> list = userService.getSysOpList(map);
-		
-		// 封装为PageHelper实体
 		PageInfo<SysOp> pageInfo = new PageInfo<>(list);
-
 		return pageInfo;
 	}
 	
@@ -81,11 +75,7 @@ public class UserController {
 			map.put("sysOp", sysOp);
 		}
 		map.put("type", type);
-		
-		//返回userAdd.jsp页面
 		return "user/userAdd";
 	}
-	
-	
 	
 }

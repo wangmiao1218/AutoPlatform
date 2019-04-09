@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.gennlife.crf.mapper.SysRoleMapper">
-	<resultMap id="BaseResultMap" type="com.gennlife.crf.bean.SysRole">
+<mapper namespace="com.gennlife.autoplatform.mapper.SysRoleMapper">
+	<resultMap id="BaseResultMap" type="com.gennlife.autoplatform.bean.SysRole">
 		<id column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
 		<result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
 		<result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
@@ -32,7 +32,7 @@
 
 	<!-- 查询角色的权限状态，用于角色菜单模块zTree显示 -->
 	<select id="getRolFuncTree" parameterType="java.util.Map"
-		resultType="com.gennlife.crf.bean.SysFuncBeanForRoleTree">
+		resultType="com.gennlife.autoplatform.bean.SysFuncBeanForRoleTree">
 		SELECT sf.`FUNC_ID` funcId,`SUP_FUNC_ID`
 		supFuncId,`FUNC_NAME` name,
 		CASE

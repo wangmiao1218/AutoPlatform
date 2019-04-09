@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.gennlife.autoplatform.bean.Excel;
 import com.gennlife.autoplatform.utils.ExcelUtils;
 import com.gennlife.autoplatform.utils.ListAndStringUtils;
-import com.gennlife.myujie.TranslateToEnglish;
+import com.gennlife.pmtools.TranslateToEnglish;
 
 public class TestExcelUtils {
 	

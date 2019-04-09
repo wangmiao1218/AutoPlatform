@@ -51,7 +51,6 @@ public class RwsCalculateStabilityTask {
 		if (loginResultObject.has("code") && "1".contains(loginResultObject.getString("code"))) {
 			sessionId = ((JSONObject) loginResultObject.get("data")).getString("uid");
 			logger.info("sessionId:"+sessionId);
-
 			String timeStr = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 			JSONObject calculateResultObject =  RwsInterface.rwsCalculate(httpClient,rwsCalculateURL,sessionId, timeStr);
 			if (ListAndStringUtils.isJsonObject(calculateResultObject) &&
@@ -64,31 +63,17 @@ public class RwsCalculateStabilityTask {
 				logger.info("sleep中...");
 				Thread.sleep(120000);
 				JSONObject resultObject = RwsInterface.rwsResult(httpClient,rwsResultURL,sessionId, id);
-				
 				if (resultObject.has("status") && "200".contains(resultObject.getString("status"))){
 					applyTotal = ((JSONObject) resultObject.get("data")).getString("applyTotal");
-					
-					//map.put(id, applyTotal);
-					//判断是否为数字
 					if (ListAndStringUtils.isNumeric(applyTotal)) {
 						rwsBean = new RwsBean(timeStr,applyTotal,timeStr);
 					}else {
 						rwsBean = new RwsBean(timeStr,"非数值",timeStr);
 					}
 				}
-				
-				/*
-				//后续可动态判断
-				//判断是否为数字
-				ListAndStringUtils.isNumeric(applyTotal);
-				while (!ListAndStringUtils.isNumeric(applyTotal)) {
-					
-			    }
-				*/
 			}
 		}
 		return rwsBean;
 	}
-	
 	
 }

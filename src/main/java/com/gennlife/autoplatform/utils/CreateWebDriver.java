@@ -1,5 +1,6 @@
 package com.gennlife.autoplatform.utils;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
@@ -12,6 +13,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  * @Date: 2017年6月9日 下午2:12:39 
  */
 public class CreateWebDriver {
+	private static Logger logger = Logger.getLogger(CreateWebDriver.class); 
 	
 	/** 
 	* @Title: createWebDriver 
@@ -20,7 +22,6 @@ public class CreateWebDriver {
 	* @throws 
 	*/
 	public static WebDriver createChromeWebDriver(){
-		// 指定驱动路径
 		System.setProperty("webdriver.chrome.driver","D:\\chromedriver2.25\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		return driver;
@@ -33,17 +34,11 @@ public class CreateWebDriver {
 	* @throws 
 	*/
 	public static PhantomJSDriver createWebDriverByPhantomJSDriver(){
-		// 指定驱动路径
 		System.setProperty("phantomjs.binary.path","D:\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe");
-		
 		DesiredCapabilities desiredCapabilities = DesiredCapabilities.phantomjs();
 		desiredCapabilities.setJavascriptEnabled(true); 
 		PhantomJSDriver driver = new PhantomJSDriver(desiredCapabilities);
-		
-		//PhantomJSDriver driver = new PhantomJSDriver();
-		
 		return driver;
 	}
 	
-
 }

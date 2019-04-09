@@ -37,10 +37,8 @@ public class TianjinMysqlDataProcess {
 		ResultSet rs = MysqlJDBCUtils
 				.connectTianjinMysqlReturnResultSetByExecuteQuery(sql);
 		while (rs.next()) {
-			// 入如果返回的是int类型可以用getInt()
 			map.put(rs.getString(1), rs.getString(2));
 		}
-
 		return map;
 	}
 

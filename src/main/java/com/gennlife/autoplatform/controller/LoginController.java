@@ -61,25 +61,17 @@ public class LoginController {
 	@RequestMapping("getVerifyCode")
 	public void getVerifyCode(HttpServletResponse response, HttpSession session)
 			throws IOException {
-		// 设置页面不缓存
-		// HTTP 1.1
 		response.setHeader("Pragma", "no-cache");// HTTP 1.1
-		// HTTP 1.0
 		response.setHeader("Cache-Control", "no-cache");
-		// 设置缓存时间，0就是不缓存
 		response.setDateHeader("Expires", 0);
-
 		String verifyCode = VerifyCodeUtil.generateTextCode(
 				VerifyCodeUtil.TYPE_NUM_ONLY, 4, null);
 		session.setAttribute("verifyCode", verifyCode);
 		logger.debug("已将验证码放入到session中：【" + verifyCode + "】");
-
 		response.setContentType("image/jpeg");
 		BufferedImage bufferedImage = VerifyCodeUtil.generateImageCode(
 				verifyCode, 90, 30, 5, true, Color.WHITE, Color.BLACK, null);
-
 		ImageIO.write(bufferedImage, "JPEG", response.getOutputStream());
-
 	}
 
 	
@@ -98,34 +90,24 @@ public class LoginController {
 	public String login(@RequestParam("username") String username,
 			String password, String verifyCode, HttpSession session,
 			RedirectAttributes redirectAttributes) throws Exception {
-
 		logger.debug("登陆参数为" + username + "---" + password + "---" + verifyCode);
-
 		String sessionVerifyCode = (String) session.getAttribute("verifyCode");
 		if (!verifyCode.equals(sessionVerifyCode)) {
 			logger.debug("验证码不正确");
 			redirectAttributes.addFlashAttribute("errMsg", "验证码不正确");
 			return "redirect:/login";
 		}
-
-		// 用户名密码
 		SysOp param = new SysOp();
 		param.setLoginCode(username);
 		param.setLoginPasswd(password);
-
-		// 后台查询
 		SysOp sysOp = loginService.getSysOpByUnameAndPwd(param);
 		if (sysOp == null) {
 			logger.debug("用户名密码不正确");
 			redirectAttributes.addFlashAttribute("errMsg", "用户名密码不正确");
 			return "redirect:/login";
 		}
-		// 登录用户信息放到session中
 		session.setAttribute("loginSysOp", sysOp);
-		// 成功返回主页
-		//测试return "redirect:/page/list.html";
 		return "redirect:/index";
-
 	}
 
 	
@@ -144,17 +126,11 @@ public class LoginController {
 		SysOp sysOp = (SysOp) session.getAttribute("loginSysOp");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("opId", sysOp.getOpId());
-		
-		//执行查询
 		List<SysFuncBean> list = loginService.getSysFuncByOpId(map);
 		List<SysFuncBean> newList =new ArrayList<>();;
-		//拼装一棵树
-		//第一次循环
 		for (int i = 0; i < list.size(); i++) {
 			SysFuncBean parent = list.get(i);
-			//拿到一级节点
 			if (list.get(i).getFuncLevel().equals(new Short("1") )) {
-				//第二次循环，找其他子节点
 				List<SysFuncBean> childList=new ArrayList<>();
 				for (int j = 0; j < list.size(); j++) {
 					SysFuncBean child = list.get(j);
@@ -162,12 +138,10 @@ public class LoginController {
 						childList.add(child);
 					}
 				}
-				//将子节点列表放入到父节点中
 				parent.setChildren(childList);
 				newList.add(parent);
 			}
 		}
-		//返回
 		return newList;
 	}
 	
@@ -206,37 +180,25 @@ public class LoginController {
 			String password, String verifyCode, HttpSession session,
 			RedirectAttributes redirectAttributes) throws Exception {
 		logger.debug("登陆参数为" + username + "---" + password + "---" + verifyCode);
-		//获取验证码
 		String sessionVerifyCode = (String) session.getAttribute("verifyCode");
 		if (!verifyCode.equals(sessionVerifyCode)) {
 			logger.debug("验证码不正确");
 			redirectAttributes.addFlashAttribute("errMsg","验证码不正确");
 			return "redirect:/login";
 		}
-		//当前用户信息
 		Subject currentUser = SecurityUtils.getSubject();
-		
-		//是否经过认证，是否登录
 		if (!currentUser.isAuthenticated()) {
-			// 构造一个UsernamePasswordToken，传入用户名和密码（来自于前台）
 			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-			//执行认证
 			try {
 				currentUser.login(token);
 			} catch (AuthenticationException ae) {
-				// 针对登录时相关的所有异常，在这处理
             	logger.info("****>  发生了异常：" + ae.getMessage());
-            	//异常处理(同原来一致)
             	redirectAttributes.addFlashAttribute("errMsg","验证码不正确");
     			return "redirect:/login";
 			}
 		}
-		
-		// 怎么获取到用户的对象
 		// currentUser.getPrincipal()是realm在构造SimpleAuthenticationInfo的时候,Object principal，传入的sysOp对象
-		//登录用户信息放到session中
 		session.setAttribute("loginSysOp", currentUser.getPrincipal());
-		
 		return "redirect:/index";
 	}
 	

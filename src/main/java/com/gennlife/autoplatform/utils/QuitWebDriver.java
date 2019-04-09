@@ -18,7 +18,6 @@ public class QuitWebDriver {
 	* @throws 
 	*/
 	public static void quitWebDriver(WebDriver driver){
-		// 关闭浏览器
 		driver.close();
 		driver.quit();
 	}
@@ -32,7 +31,6 @@ public class QuitWebDriver {
 	* @throws 
 	*/
 	public static void quitWebDriverByPhantomJSDriver(PhantomJSDriver driver){
-		// 关闭浏览器
 		driver.close();
 		driver.quit();
 	}

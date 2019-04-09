@@ -9,7 +9,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 /**
- * @Description: 江苏环境：添加患者信息_既往史
+ * @Description: 屏幕截屏
  * @author: wangmiao
  * @Date: 2017年7月6日 下午2:15:26
  */
@@ -32,16 +32,13 @@ public class Screenshot {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		// 截图到output
 		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		String savePath = "F:\\screenshot.png";
-		// 复制内容到指定文件中
 		try {
 			FileUtils.copyFile(scrFile, new File(savePath));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		return "ok";
 	}
 	

@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 import net.sf.json.JSONArray;
 
 import org.apache.commons.collections4.map.HashedMap;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
 
 import com.alibaba.fastjson.JSONObject;
@@ -28,6 +29,8 @@ import com.gennlife.autoplatform.bean.CrfTemplateAnzhenXinXueguan;
  * @Date: 2017年6月9日 上午9:58:00
  */
 public class ListAndStringUtils {
+	private static Logger logger = Logger.getLogger(ListAndStringUtils.class); 
+	
 /*
 	
 	/**
@@ -111,9 +114,7 @@ public class ListAndStringUtils {
 	 * @throws
 	 */
 	public static int countChar(String str, char ch) {
-		// 将字符串转换为字符数组
 		char[] chs = str.toCharArray();
-		// 定义变量count存储字符串出现次数
 		int count = 0;
 		for (int i = 0; i < chs.length; i++) {
 			if (chs[i] == ch) {
@@ -139,7 +140,6 @@ public class ListAndStringUtils {
 			Matcher m = p.matcher(str);
 			str = m.replaceAll("");
 		}
-		// 然后徐去掉末尾的分号
 		if (str.contains(";")) {
 			String lastStr = str.substring(str.length() - 1, str.length());
 			if (";".equals(lastStr)) {
@@ -174,14 +174,12 @@ public class ListAndStringUtils {
 	 * @throws
 	 */
 	public static String[] dealWithpatientDetailByDotToStrings(String value) {
-		// 处理
 		if (value.indexOf("$") != -1) {
 			value = value.replace("$.", "");
 		}
 		if (value.indexOf("[") != -1 && value.indexOf("]") != -1) {
 			value = value.replace("[*]", "");
 		}
-		// 转换
 		String[] strings = null;
 		if (value.contains(".")) {
 			strings = value.split("\\.");
@@ -202,7 +200,6 @@ public class ListAndStringUtils {
 	public static List<String> dealWithpatientDetailBySemicolonToStrings(
 			String value) {
 		List<String> list = new ArrayList<String>();
-		// 转换
 		String[] strings = null;
 		if (value.contains(";")) {
 			strings = value.split(";");
@@ -254,14 +251,12 @@ public class ListAndStringUtils {
 			for (int i = 0; i < strings.length; i++) {
 				String[] mapStrs = null;
 				if (strings[i].contains(":")) {
-					// 冒号分割，填入map
 					mapStrs = strings[i].split(":");
 					map.put(mapStrs[0].trim(), mapStrs[1].trim());
 				}
 			}
 		} else {
 			if (value.trim().contains(":")) {
-				// 冒号分割，填入map
 				String[] mapStrs = value.split(":");
 				map.put(mapStrs[0].trim(), mapStrs[1].trim());
 			}
@@ -286,7 +281,6 @@ public class ListAndStringUtils {
 		} else {
 			list.add(value);
 		}
-
 		JSONArray jsonArray = JSONArray.fromObject(list);
 		return jsonArray;
 	}
@@ -356,7 +350,6 @@ public class ListAndStringUtils {
 		long st = System.nanoTime();
 		Map<String, Integer> map = new HashMap<String, Integer>(list1.size()
 				+ list2.size());
-
 		List<String> diff = new ArrayList<String>();
 		List<String> maxList = list1;
 		List<String> minList = list2;
@@ -368,7 +361,6 @@ public class ListAndStringUtils {
 		for (String string : maxList) {
 			map.put(string, 1);
 		}
-
 		for (String string : minList) {
 			Integer cc = map.get(string);
 			if (map.get(string) != null) {
@@ -377,14 +369,12 @@ public class ListAndStringUtils {
 			}
 			map.put(string, 1);
 		}
-
 		for (Map.Entry<String, Integer> entry : map.entrySet()) {
 			if (entry.getValue() == 1) {
 				diff.add(entry.getKey());
 			}
 		}
-
-		System.out.println("getDiffrent4 total times "
+		logger.info("getDiffrent4 total times "
 				+ (System.nanoTime() - st));
 
 		return diff;
@@ -476,14 +466,10 @@ public class ListAndStringUtils {
 				&& !"".equals(firstCrf.getDisplayMainKey())
 				&& !" ".equals(firstCrf.getDisplayMainKey())) {
 			returnlist.add(firstCrf);
-
-			// 获取对应的联动字段名称
 			String linkageEnglishName1 = ListAndStringUtils
 					.displayMainKeyToEnglishName(firstCrf.getDisplayMainKey());
-			// 在list中查英文名称为linkageEnglishName的CrfTemplateAnzhenXinXueguan
 			CrfTemplateAnzhenXinXueguan secondCrf = ListAndStringUtils
 					.searchCrfListReturnOneCrf(crfList, linkageEnglishName1);
-			// 递归查询
 			searchCrfListReturnAllLinkageFieldsList(crfList, secondCrf,
 					returnlist);
 		} else {
@@ -598,7 +584,6 @@ public class ListAndStringUtils {
 				}
 			}
 		}
-
 		return list;
 	}
 
@@ -612,31 +597,23 @@ public class ListAndStringUtils {
 	 */
 	public static List<String> chNamesListFilter(List<String> chNamesList) {
 		List<String> returnList = new ArrayList<String>();
-
 		for (int i = 0; i < chNamesList.size(); i++) {
 			String value = chNamesList.get(i);
-			// 去掉中英文:之后
 			if (value.indexOf("：") != -1) {
 				value = value.substring(0, value.indexOf("："));
 			}
 			if (value.indexOf(":") != -1) {
 				value = value.substring(0, value.indexOf(":"));
 			}
-
-			// 去掉中英文？之后
 			if (value.indexOf("？") != -1) {
 				value = value.substring(0, value.indexOf("？"));
 			}
 			if (value.indexOf("?") != -1) {
 				value = value.substring(0, value.indexOf("?"));
 			}
-
-			// 去掉。之后
 			if (value.indexOf("。") != -1) {
 				value = value.substring(0, value.indexOf("。"));
 			}
-
-			// 去掉中英文（）之间
 			if (value.indexOf("（") != -1) {
 				value = value.replaceAll(value.substring(value.indexOf("（"),
 						value.indexOf("）") + 1), "");
@@ -645,18 +622,12 @@ public class ListAndStringUtils {
 				value = value.replaceAll(value.substring(value.indexOf("("),
 						value.indexOf(")") + 1), "");
 			}
-
-			// 删掉、
 			if (value.indexOf("、") != -1) {
 				value = value.replace("、", "");
 			}
-
-			// 删掉空格
 			if (value.indexOf(" ") != -1) {
 				value = value.replace(" ", "");
 			}
-
-			// 删掉中英文，
 			if (value.indexOf("，") != -1) {
 				value = value.replace("，", "");
 			}
@@ -682,20 +653,15 @@ public class ListAndStringUtils {
 
 		for (int i = 0; i < enNamesList.size(); i++) {
 			String value = enNamesList.get(i);
-			// 1.去掉中英文 ？之后
 			if (value.indexOf("？") != -1) {
 				value = value.substring(0, value.indexOf("？"));
 			}
 			if (value.indexOf("?") != -1) {
 				value = value.substring(0, value.indexOf("?"));
 			}
-
-			// 2.去掉.之后
 			if (value.indexOf(".") != -1) {
 				value = value.substring(0, value.indexOf("."));
 			}
-
-			// 3.去掉中英文()之内
 			if (value.indexOf("（") != -1) {
 				value = value.replaceAll(value.substring(value.indexOf("（"),
 						value.indexOf("）") + 1), "");
@@ -704,13 +670,9 @@ public class ListAndStringUtils {
 				value = value.replaceAll(value.substring(value.indexOf("("),
 						value.indexOf(")") + 1), "");
 			}
-
-			// 4.去掉-
 			if (value.indexOf("-") != -1) {
 				value = value.replace("-", "");
 			}
-
-			// 5.中英文,和、变成空格
 			if (value.indexOf("，") != -1) {
 				value = value.replace("，", " ");
 			}
@@ -720,18 +682,11 @@ public class ListAndStringUtils {
 			if (value.indexOf("、") != -1) {
 				value = value.replace("、", " ");
 			}
-
-			// 6.空格变为_
 			if (value.indexOf(" ") != -1) {
 				value = value.replace(" ", "_");
 			}
-
-			// 7.转为大写
 			value = value.toUpperCase();
-
-			// 8.trim
 			value = value.trim();
-
 			returnList.add(value);
 		}
 		return returnList;
@@ -746,26 +701,20 @@ public class ListAndStringUtils {
 	 */
 	public static String listWebElementToSelectString(List<WebElement> list) {
 		StringBuilder sb = new StringBuilder();
-
 		if (list.get(0) == null || "".equals(list.get(0))
 				|| " ".equals(list.get(0))) {
-			// 添加"；"
 			for (int i = 1; i < list.size(); i++) {// 一般下拉框第一个为空，所以从1开始
 				String attribute = list.get(i).getAttribute("value");
 				sb.append(attribute + "；");
 			}
-			// 去掉最后的“；”,与excel中“取值范围”一致，方便后续校验
 			sb.deleteCharAt(sb.length() - 1);
 		} else {
-			// 添加"；"
 			for (int i = 0; i < list.size(); i++) {// 一般下拉框第一个为空，所以从1开始
 				String attribute = list.get(i).getAttribute("value");
 				sb.append(attribute + "；");
 			}
-			// 去掉最后的“；”,与excel中“取值范围”一致，方便后续校验
 			sb.deleteCharAt(sb.length() - 1);
 		}
-
 		return sb.toString();
 	}
 
@@ -778,7 +727,6 @@ public class ListAndStringUtils {
 	 */
 	public static List<String> listWebElementToListString(List<WebElement> list) {
 		List<String> arrayList = new ArrayList<String>();
-		// 添加"；"
 		for (int i = 0; i < list.size(); i++) {
 			String attribute = list.get(i).getText();
 			arrayList.add(attribute);
@@ -821,7 +769,6 @@ public class ListAndStringUtils {
 	public static String trimString(String value) {
 		String[] strings = value.split("；");
 		StringBuilder sb = new StringBuilder();
-
 		for (int i = 0; i < strings.length; i++) {
 			sb.append(strings[i].trim()).append("；");
 		}
@@ -852,26 +799,16 @@ public class ListAndStringUtils {
 	 * @throws
 	 */
 	public static String stringListReturnRandomString(String value) {
-		// 将list取出分隔后，随机生成list
 		String[] strings = value.split(";");
-		// 存放内容的集合
 		ArrayList<String> items = new ArrayList<>();
-
 		for (int i = 0; i < strings.length; i++) {
 			items.add(strings[i].trim());
 		}
-
-		// 初始化随机数
 		Random rand = new Random();
-		// 取得集合的长度，for循环使用
 		int size = items.size();
-
 		String returnValue = null;
-		// 遍历整个items数组
 		for (int i = 0; i < size; i++) {
-			// 任意取一个0~size的整数，注意此处的items.size()是变化的，所以不能用前面的size会发生数组越界的异常
 			int myRand = rand.nextInt(items.size());
-			// 将取出的这个元素放到存放结果的集合中
 			returnValue = items.get(myRand);
 		}
 		return returnValue;
@@ -924,9 +861,7 @@ public class ListAndStringUtils {
 	 * @throws
 	 */
 	public static List<String> arrayListFilesToStringList(ArrayList<File> files) {
-		// 用来保存数据
 		List<String> list = new ArrayList<String>();
-
 		for (int i = 0; i < files.size(); i++) {
 			String str = files.get(i).toString().replaceAll("\\\\", "\\\\\\\\");
 			list.add(str);

@@ -56,22 +56,15 @@ public class Excel {
 	}
 
 	public Workbook getWorkbook() {
-		// 根据参数传入的数据文件路径和文件名称，组合出Excel数据文件的绝对路径，声明一个File文件对象
 		File file = new File(getFilePath() + "\\" + getFileName());
-
-		// 创建FileInputStream对象用于读取Excel文件
 		FileInputStream is = null;
 		try {
 			is = new FileInputStream(file);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
-		// 获取文件名参数的扩展名，判断是.xlsx文件还是.xls文件
 		String fileExtensionName = getFileName().substring(getFileName().lastIndexOf("."));
-		
 		Workbook workbook = null;
-		
 		if (fileExtensionName.equals(".xlsx")) {
 			try {
 				workbook = new XSSFWorkbook(is);
@@ -85,7 +78,6 @@ public class Excel {
 				e.printStackTrace();
 			}
 		}
-
 		return workbook;
 	}
 

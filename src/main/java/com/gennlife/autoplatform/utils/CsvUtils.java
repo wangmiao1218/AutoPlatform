@@ -23,32 +23,19 @@ public class CsvUtils {
 	* @throws 
 	*/
 	public static List<String> readCsvOfLine(String readFilePathAndFileName) {
-		// 用来保存数据
 		List<String> csvList = new ArrayList<String>();
-
 		try {
-			// 创建CSV读对象
 			CsvReader csvReader = new CsvReader(readFilePathAndFileName,',',Charset.forName("UTF-8"));
-			//CsvReader csvReader = new CsvReader(readFilePath,',',Charset.forName("GBK"));
-			// 读表头
 			csvReader.readHeaders();
-			
-			// 逐行读入除表头的数据
 			while (csvReader.readRecord()) {
-				// 读这行的某一列s
 				String value = csvReader.get("src.jzlsh");
 				csvList.add(value);
 			}
-			// 关闭
 			csvReader.close();
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		return csvList;
 	}
-	
-	
 	
 }

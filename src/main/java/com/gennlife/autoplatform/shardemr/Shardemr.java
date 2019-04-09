@@ -31,12 +31,9 @@ public class Shardemr {
 	*/
 	public static String getAccessToken(String url,Map<String, String> map) {
 		String responses = ShardemrAndOauthTokenInterface.getOauthToken(url, map);
-		//定义OauthToken返回的JSONObject
 		JSONObject jsonObject=null;
-		//定义返回的accessToken
 		String accessToken=null;
 		try {
-			//转成JSONObject
 			jsonObject = new JSONObject(responses);
 			accessToken = (String) jsonObject.get("access_token");
 		} catch (JSONException e) {
@@ -61,14 +58,9 @@ public class Shardemr {
 	public static String getShardemr(String oauthURL,String shardemrURL,
 			Map<String, String> oauthTokenMap,
 			Map<String, String> shardemrMap) {
-		//获取token
 		String accessToken=getAccessToken(oauthURL, oauthTokenMap);
-		
-		//放置新的token放置过期
 		shardemrMap.put("access_token", accessToken);
-		//请求shardemr接口，返回数据
 		String shardemr = ShardemrAndOauthTokenInterface.getShardemr(shardemrURL, shardemrMap);
-		
 		return shardemr;
 	}
 	
@@ -93,11 +85,8 @@ public class Shardemr {
 			@Override
 			public String call() throws Exception {
 				String shardemr = Shardemr.getShardemr(oauthURL, shardemrURL, oauthTokenMap, shardemrMap);
-				//System.out.println(shardemr);
 				String value = FileUtils.writeContentToFile("F:/test_"+UUID.randomUUID()+".json",shardemr);
-				
 				if ("ok".equals(value)) {
-					//logger.info(loginName+"_success_"+new Date());
 					return "success";
 				}else {
 					return "error";
@@ -124,9 +113,6 @@ public class Shardemr {
 		oauthTokenMap.put("password", "123456");
 		oauthTokenMap.put("client_id", "webapp");
 		oauthTokenMap.put("client_secret", "web");
-		
 		return oauthTokenMap;
 	}
-	
-	
 }

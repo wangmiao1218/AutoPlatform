@@ -38,47 +38,32 @@ public class ShardemrAndOauthTokenInterface {
 	* @throws 
 	*/
 	public static String getOauthToken(String url,Map<String, String> map) {
-		// 创建默认的httpClient实例
 		CloseableHttpClient httpClient = null;
 		HttpPost httpPost = null;
-		// 定义返回内容
 		String responses = null;
 		try {
 			httpClient = HttpClients.createDefault();
-			// 设置连接超时时间和获取数据超时时间
 			/**
 			RequestConfig requestConfig = RequestConfig.custom()
 					.setConnectTimeout(20000)
 					.setConnectionRequestTimeout(15000).setSocketTimeout(20000)
 					.build(); 
 			 */
-			// 创建Post请求的实例，并传入待连接的地址
 			httpPost = new HttpPost(url);
-			//httpPost.setConfig(requestConfig);
-
-			// 设置请求头
 			httpPost.addHeader("content-type",
 					"application/x-www-form-urlencoded; charset=UTF-8");
-			// 创建Post请求参数队列
 			List<NameValuePair> formparams = new ArrayList<NameValuePair>();
 			// 表单中的域用类NameValuePair来表示，该类的构造函数第一个参数是域名，第二参数是该域的值；
 			for (String pKey : map.keySet()) {
 				formparams.add(new BasicNameValuePair(pKey, map.get(pKey)));
 			}
-			// 设置表单的编码格式
 			httpPost.setEntity(new UrlEncodedFormEntity(formparams, "UTF-8"));
-			// 执行post请求，调用第一步中创建好的实例的execute方法来执行第二步中创建好的method实例
 			HttpResponse response = httpClient.execute(httpPost);
-			// 读response，获取响应实体
 			HttpEntity entity = response.getEntity();
-			// 读入内容流，并以字符串形式返回
 			String postResult = EntityUtils.toString(entity, "UTF-8");
-			// 把Unicode编码转中文
 			responses = StringEscapeUtils.unescapeJava(postResult);
 			if (responses != null) {
-				// 打印响应内容
-				//System.out.println("接口响应：" + responses + "\n"); // 打印响应内容
-				EntityUtils.consume(entity);// 关闭内容流
+				EntityUtils.consume(entity);
 			}
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -87,18 +72,15 @@ public class ShardemrAndOauthTokenInterface {
 		} finally {
 			try {
 				if (httpPost != null) {
-					// 关闭连接
 					httpPost.releaseConnection();
 				}
 				if (httpClient != null) {
-					// 关闭连接
 					httpClient.close();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-
 		return responses;
 	}
 	
@@ -116,48 +98,30 @@ public class ShardemrAndOauthTokenInterface {
 	* @throws 
 	*/
 	public static String getShardemr(String url,Map<String, String> map) {
-		// 创建默认的httpClient实例
 		CloseableHttpClient httpClient = null;
 		HttpPost httpPost = null;
-		// 定义返回内容
 		String responses = null;
 		try {
 			httpClient = HttpClients.createDefault();
-			// 设置连接超时时间和获取数据超时时间
 			/**
 			RequestConfig requestConfig = RequestConfig.custom()
 					.setConnectTimeout(20000)
 					.setConnectionRequestTimeout(15000).setSocketTimeout(20000)
 					.build(); 
 			*/
-			// 创建Post请求的实例，并传入待连接的地址
 			httpPost = new HttpPost(url);
-			//httpPost.setConfig(requestConfig);
-			
-			// 设置请求头
 			httpPost.addHeader("content-type","application/x-www-form-urlencoded; charset=UTF-8");
-			//新增请求头的参数api-version：v1
 			httpPost.addHeader("api-version","v1");
-			
-			// 创建Post请求参数队列
 			List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-			// 表单中的域用类NameValuePair来表示，该类的构造函数第一个参数是域名，第二参数是该域的值；
 			for (String pKey : map.keySet()) {
 				formparams.add(new BasicNameValuePair(pKey, map.get(pKey)));
 			}
-			// 设置表单的编码格式
 			httpPost.setEntity(new UrlEncodedFormEntity(formparams, "UTF-8"));
-			// 执行post请求，调用第一步中创建好的实例的execute方法来执行第二步中创建好的method实例
 			HttpResponse response = httpClient.execute(httpPost);
-			// 读response，获取响应实体
 			HttpEntity entity = response.getEntity();
-			// 读入内容流，并以字符串形式返回
 			String postResult = EntityUtils.toString(entity, "UTF-8");
-			// 把Unicode编码转中文
 			responses = StringEscapeUtils.unescapeJava(postResult);
 			if (responses != null) {
-				// 打印响应内容
-				//System.out.println("接口响应：" + responses + "\n"); // 打印响应内容
 				EntityUtils.consume(entity);// 关闭内容流
 			}
 		} catch (ClientProtocolException e) {
@@ -167,18 +131,15 @@ public class ShardemrAndOauthTokenInterface {
 		} finally {
 			try {
 				if (httpPost != null) {
-					// 关闭连接
 					httpPost.releaseConnection();
 				}
 				if (httpClient != null) {
-					// 关闭连接
 					httpClient.close();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
 		return responses;
 	}
 
