@@ -99,11 +99,8 @@ function initGrid(){
         		      }
         		      //初始化树，按配置进行渲染
         		      $.fn.zTree.init($("#treeDemo"), setting, data);
-        		      //获取ztree对象
         		      treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-        		      //获取到所有选择状态的节点
         		      var nodes = treeObj.getCheckedNodes(true);
-        		      //遍历所有节点，并展开，注意：只作用于父节点，因为子节点无法展开
         		      for (var i = 0; i < nodes.length; i++) {
         		        treeObj.expandNode(nodes[i], true, true, true);
         		      }
@@ -156,16 +153,12 @@ function resetBtn(){
  * 点击保存修改
  */
 function save(){
-	// 声明一个JSON数组，用来保存选中的funcId
 	var funcIdArr = new Array();
-	// 获取所有选中的数据
 	var nodes = treeObj.getCheckedNodes(true);
 	 for (var i = 0; i < nodes.length; i++) {
 		 funcIdArr[i] = nodes[i].funcId;
 	 }
-	
 	var data = {
-		// 将数组转化为字符串返回
 		funcIdArr : funcIdArr.join(),
 		roleId:roleId
 	}
@@ -186,12 +179,10 @@ function qtips(value, cellmeta, record, rowIndex, colIndex, store){
 
 //设置zTree
 var setting = {
-	// 节点前增加多选框
 	check: {
 		enable: true,
 		chkboxType: { "Y": "p", "N": "s" }
 	},
-	// 指定节点数据类型
 	data: {
 		simpleData: {
 			enable: true,

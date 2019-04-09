@@ -24,14 +24,12 @@ Ext.onReady(function(){
 });
 /*日期组件*/
 function initDateTime() {
-	// 开始时间
 	$("#timeStartBox").live("click", function() {
 		WdatePicker({
 					el : "timeStart",
 					dateFmt : "yyyy-MM-dd HH:mm:ss"
 				});
 	});
-	// 结束时间
 	$("#timeEndBox").live("click", function() {
 		WdatePicker({
 					el : "timeEnd",
@@ -42,13 +40,9 @@ function initDateTime() {
 
 // 初始化下拉框
 function initCombo(){
-	// 生成下拉框数据源
     var store = Ext.create('Ext.data.Store', {
         autoDestroy: true,
-        // 指定下拉框属性
         fields: ['codeValue', 'codeName'],
-        // 给请求附加参数
-        // 利用ajax请求获取数据
         proxy: {
         	extraParams:{
             	codeType : '1003'
@@ -60,18 +54,14 @@ function initCombo(){
     });
     var simpleCombo = Ext.create('Ext.form.field.ComboBox', {
         renderTo: 'simpleCombo',
-        // 下拉框显示的值
         displayField: 'codeName',
-        // 下拉框提交的值
         valueField: 'codeValue',
         width: 220,
         labelWidth: 130,
         store: store,
         typeAhead: true,
-        // 监听下拉框选中事件
         listeners:{
         	'select':function(value){
-        		// 给opKind赋值
         		$("#opKind").val(this.getValue());
         	}
         }
@@ -80,10 +70,7 @@ function initCombo(){
 
 // 初始化列表
 function initGrid(){
-
-    // 创建列表需要的数据源 store
     store = Ext.create('Ext.data.Store', {
-    	// 自动加载
     	autoLoad: true,
         fields: [
            {name: 'opId', type: 'auto', convert: null, defaultValue: undefined},
@@ -96,7 +83,6 @@ function initGrid(){
            {name: 'lockFlag', type: 'auto', convert: null, defaultValue: undefined}
         ],  
         remoteSort: true,
-        // 设置单页显示数量
         pageSize: 10,
         proxy: {
             type: 'ajax',
@@ -269,26 +255,15 @@ function deleteSysOp(opId){
 	if(!confirm("您确定要删除吗？")){
 		return false;
 	}
-	
-	// 获取store中的  所有记录数、单页展示记录数、当前页码
 	var totalCount = store.getTotalCount();
 	var pageSize = store.pageSize;
 	var curPage = store.currentPage;
-	
-	// 找出记录号和记录条数
-	// 当前页展示的起始记录号
 	var fromRecord = ((curPage - 1) * pageSize) + 1; 
-    // 当前页展示的结尾记录号
     var toRecord = Math.min(curPage * pageSize, totalCount); 
-    // 当前页展示的记录条数 
     var totalOnCurPage = toRecord - fromRecord + 1; 
-    // 总的页数  
     var totalPage = Math.ceil(totalCount / pageSize); 
-    
-    // 若当前页是最后一页，且不是仅有的一页，且删除的记录数是当前页上的最后一条（因为我们是单条删除）
     if (curPage === totalPage && totalPage != 1 && totalOnCurPage == 1)  
     {  
-    	// 更改store的当前页为前一页
     	store.currentPage = store.currentPage-1;  
     }    
 	
@@ -296,7 +271,6 @@ function deleteSysOp(opId){
 	var data = {opId:opId};
 	var callback = function(result){
 		alert(result.msg);
-		// 重新加载数据
 		store.load();
 	};
 	var type = "json";
@@ -346,8 +320,6 @@ function query(){
 		'opKind':$("#opKind").val(),
 		'opName':$("#opName").val(),
 	},
-	
-	// 加载store数据
 	store.load();
 }
 

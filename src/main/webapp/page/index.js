@@ -33,22 +33,18 @@ function getMenu() {
    		 
    	 },
    	 success : function(data){
-   		// 赋值
    		var menuData = data;
    		
-   		var firstCount = 0; //记录当前菜单箭头位置，用于子菜单显示时确定自己的位置
+   		var firstCount = 0; 
    		for(var i = 0; i < menuData.length; i++) {
    			var menu = menuData[i];
    			var menuHtml="";
    			var secondMenuHtml="";
    			var oper = ""; //点击动作字符串
    			var css = ""; //css
-   			//排除“首页”这个菜单
    			if (menu != null && menu != ""  &&  menu.funcLevel == "1") {
-   				//如果链接为空，则输入默认点击操作
    				if(menu.funcUrl != null && menu.funcUrl != "" && menu.funcUrl != "*.jsp") {
    					oper = 'onclick=\'$("#indexiframe").attr("src","page/' + menu.funcUrl + '");$("#cnt-title").html("'+menu.funcName+'");\'';
-   					//给首页赋值
    					if(i==0)homePage = "" + menu.funcUrl;
    				}
    				//根据code判断菜单小图标
@@ -83,7 +79,6 @@ function getMenu() {
    							secondeOper = 'onclick=\'$("#indexiframe").attr("src","page/' + secondMenu.funcUrl + '");$("#cnt-title").html("'+secondMenu.funcName+'");\'';
    							if(y==0){
    								secondMenuHtml+="<li id=\"defaultPage"+firstCount+"\" idsrc=\"page/"+secondMenu.funcUrl+"\" "+secondeOper+">"+secondMenu.funcName+"</li>"
-   								//给首页赋值
    								firstCount++;
    							}else{
    								secondMenuHtml+="<li "+secondeOper+">"+secondMenu.funcName+"</li>"
@@ -96,10 +91,8 @@ function getMenu() {
    					menuHtml = "<li id=\"defaultPage"+firstCount+"\" idsrc=\"page/+"+menu.funcUrl+"\" class=\"frt\"><span "+oper+" ><i id=\""+menu.funcId+"\"" +css+"></i>"+menu.funcName+"</span></li>";
    					firstCount++;
    				}
-   				// 最终拼装html代码
    				$("#menu").append(menuHtml);
    				
-   				//默认选中菜单，主页通用js中
    				setDefaultPage();
    			}
    		}

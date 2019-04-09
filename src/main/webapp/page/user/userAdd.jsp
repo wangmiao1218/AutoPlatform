@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="keyword" content="">
-    <title>添加积分供应商</title>
+    <title>添加用户</title>
     <!-- 日期控件CSS -->
 	<link rel="stylesheet" type="text/css" href="<%=rootPath %>/res/cui/app/datepicker/My97DatePicker/skinex/skinex.css" />
 	<!-- 引入jQueryValidation -->
