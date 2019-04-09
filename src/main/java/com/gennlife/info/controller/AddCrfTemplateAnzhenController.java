@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.gennlife.crf.bean.CrfTemplateAnzhen;
-import com.gennlife.crf.service.CrfTemplateAnzhenService;
-import com.gennlife.crf.utils.AnzhenInputValueMethod;
-import com.gennlife.crf.utils.CreateWebDriver;
-import com.gennlife.crf.utils.LoginCrfOfAnzhen;
-import com.gennlife.crf.utils.QuitWebDriver;
+import com.gennlife.autoplatform.bean.CrfTemplateAnzhen;
+import com.gennlife.autoplatform.service.CrfTemplateAnzhenService;
+import com.gennlife.autoplatform.utils.AnzhenInputValueMethod;
+import com.gennlife.autoplatform.utils.CreateWebDriver;
+import com.gennlife.autoplatform.utils.LoginCrfOfAnzhen;
+import com.gennlife.autoplatform.utils.QuitWebDriver;
 
 /**
  * @Description:  安贞环境，添加单病种数据库中crf

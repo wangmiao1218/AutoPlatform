@@ -7,9 +7,9 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.gennlife.crf.utils.CreateWebDriver;
-import com.gennlife.crf.utils.LoginRws;
-import com.gennlife.crf.utils.QuitWebDriver;
+import com.gennlife.autoplatform.utils.CreateWebDriver;
+import com.gennlife.autoplatform.utils.LoginRws;
+import com.gennlife.autoplatform.utils.QuitWebDriver;
 
 /**
  * @Description: 执行rws的计算相关方法（rws定时程序使用，动态传url地址、用户与密码）

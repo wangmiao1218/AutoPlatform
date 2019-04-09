@@ -26,9 +26,9 @@ import org.apache.log4j.Layout;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
-import com.gennlife.crf.bean.Excel;
-import com.gennlife.crf.utils.FileUtils;
-import com.gennlife.crf.utils.ListAndStringUtils;
+import com.gennlife.autoplatform.bean.Excel;
+import com.gennlife.autoplatform.utils.FileUtils;
+import com.gennlife.autoplatform.utils.ListAndStringUtils;
 
 /**
  * @Description: CRF模板工具-2.0

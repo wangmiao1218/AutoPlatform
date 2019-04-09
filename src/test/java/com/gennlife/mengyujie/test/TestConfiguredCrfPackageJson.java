@@ -12,10 +12,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 
-import com.gennlife.crf.bean.CrfPackageJsonBean;
-import com.gennlife.crf.bean.Excel;
-import com.gennlife.crf.utils.JsonUtil_bak;
-import com.gennlife.crf.utils.ListAndStringUtils;
+import com.gennlife.autoplatform.bean.CrfPackageJsonBean;
+import com.gennlife.autoplatform.bean.Excel;
+import com.gennlife.autoplatform.utils.JsonUtil_bak;
+import com.gennlife.autoplatform.utils.ListAndStringUtils;
 import com.gennlife.myujie.ConfiguredCrfPackageJson;
 
 public class TestConfiguredCrfPackageJson {

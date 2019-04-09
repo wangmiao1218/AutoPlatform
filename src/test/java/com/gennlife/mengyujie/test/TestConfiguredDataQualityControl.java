@@ -5,7 +5,7 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import com.gennlife.crf.bean.Excel;
+import com.gennlife.autoplatform.bean.Excel;
 import com.gennlife.myujie.ConfiguredDataQualityControl;
 import com.gennlife.myujie.ConfiguredLinkagePath;
 

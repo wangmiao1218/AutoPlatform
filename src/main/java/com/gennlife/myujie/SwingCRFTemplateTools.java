@@ -20,9 +20,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import com.gennlife.crf.bean.Excel;
-import com.gennlife.crf.utils.FileUtils;
-import com.gennlife.crf.utils.ListAndStringUtils;
+import com.gennlife.autoplatform.bean.Excel;
+import com.gennlife.autoplatform.utils.FileUtils;
+import com.gennlife.autoplatform.utils.ListAndStringUtils;
 
 
 /**

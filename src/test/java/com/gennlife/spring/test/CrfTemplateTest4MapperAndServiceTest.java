@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.gennlife.crf.bean.CrfTemplateTest4;
-import com.gennlife.crf.mapper.CrfTemplateTest4Mapper;
-import com.gennlife.crf.service.CrfTemplateTest4Service;
+import com.gennlife.autoplatform.bean.CrfTemplateTest4;
+import com.gennlife.autoplatform.mapper.CrfTemplateTest4Mapper;
+import com.gennlife.autoplatform.service.CrfTemplateTest4Service;
 
 /**
  * @Description: 测试CrfTemplateTest4

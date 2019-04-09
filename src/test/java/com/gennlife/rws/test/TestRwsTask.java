@@ -12,8 +12,8 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.gennlife.crf.utils.CreateWebDriver;
-import com.gennlife.crf.utils.QuitWebDriver;
+import com.gennlife.autoplatform.utils.CreateWebDriver;
+import com.gennlife.autoplatform.utils.QuitWebDriver;
 import com.gennlife.rws.RwsTask;
 
 

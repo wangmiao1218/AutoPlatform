@@ -2,8 +2,9 @@ package com.gennlife.myujie;
 
 import java.util.List;
 import java.util.Map;
-import com.gennlife.crf.bean.Excel;
-import com.gennlife.crf.utils.ExcelUtils;
+
+import com.gennlife.autoplatform.bean.Excel;
+import com.gennlife.autoplatform.utils.ExcelUtils;
 
 /**
  * @Description: 配置是否必填字段的路径

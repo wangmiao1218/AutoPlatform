@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import org.junit.Test;
 
 import com.alibaba.fastjson.JSONPath;
-import com.gennlife.crf.utils.JsonUtils;
+import com.gennlife.autoplatform.utils.JsonUtils;
 import com.gennlife.interfaces.RwsInterface;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;

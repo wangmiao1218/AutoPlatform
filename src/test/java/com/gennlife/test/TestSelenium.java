@@ -4,9 +4,9 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
-import com.gennlife.crf.utils.CreateWebDriver;
-import com.gennlife.crf.utils.LoginCrfOfAnzhen;
-import com.gennlife.crf.utils.QuitWebDriver;
+import com.gennlife.autoplatform.utils.CreateWebDriver;
+import com.gennlife.autoplatform.utils.LoginCrfOfAnzhen;
+import com.gennlife.autoplatform.utils.QuitWebDriver;
 
 
 public class TestSelenium {

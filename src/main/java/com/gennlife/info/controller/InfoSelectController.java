@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.gennlife.crf.base.SelectBase;
-import com.gennlife.crf.bean.CrfTemplate;
-import com.gennlife.crf.service.CrfTemplateService;
-import com.gennlife.crf.utils.CreateWebDriver;
-import com.gennlife.crf.utils.LoginCrfOfAnzhen;
-import com.gennlife.crf.utils.QuitWebDriver;
+import com.gennlife.autoplatform.base.SelectBase;
+import com.gennlife.autoplatform.bean.CrfTemplate;
+import com.gennlife.autoplatform.service.CrfTemplateService;
+import com.gennlife.autoplatform.utils.CreateWebDriver;
+import com.gennlife.autoplatform.utils.LoginCrfOfAnzhen;
+import com.gennlife.autoplatform.utils.QuitWebDriver;
 
 /**
  * @Description: 验证下拉框

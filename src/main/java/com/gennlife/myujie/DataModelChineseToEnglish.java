@@ -1,13 +1,15 @@
 package com.gennlife.myujie;
 
 import java.util.List;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import com.gennlife.crf.bean.Excel;
-import com.gennlife.crf.utils.ExcelUtils;
-import com.gennlife.crf.utils.ListAndStringUtils;
+
+import com.gennlife.autoplatform.bean.Excel;
+import com.gennlife.autoplatform.utils.ExcelUtils;
+import com.gennlife.autoplatform.utils.ListAndStringUtils;
 
 /**
  * @Description: 根据数据模型来源的中文，变成对应的英文路径

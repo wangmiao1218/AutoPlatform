@@ -2,7 +2,7 @@ package com.gennlife.mengyujie.test;
 
 import org.junit.Test;
 
-import com.gennlife.crf.bean.Excel;
+import com.gennlife.autoplatform.bean.Excel;
 import com.gennlife.myujie.ConfiguredLinkagePath;
 
 public class TestConfiguredLinkagePath {

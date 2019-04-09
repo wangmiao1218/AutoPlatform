@@ -10,14 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.gennlife.crf.bean.CrfTemplateTest4;
-import com.gennlife.crf.service.CrfTemplateTest4Service;
-import com.gennlife.crf.utils.CreateWebDriver;
-import com.gennlife.crf.utils.ListAndStringUtils;
-import com.gennlife.crf.utils.LoginCrfOfYantai;
-import com.gennlife.crf.utils.QuitWebDriver;
-import com.gennlife.crf.utils.RandomIdCardGenerator;
-import com.gennlife.crf.utils.RandomValue;
+import com.gennlife.autoplatform.bean.CrfTemplateTest4;
+import com.gennlife.autoplatform.service.CrfTemplateTest4Service;
+import com.gennlife.autoplatform.utils.CreateWebDriver;
+import com.gennlife.autoplatform.utils.ListAndStringUtils;
+import com.gennlife.autoplatform.utils.LoginCrfOfYantai;
+import com.gennlife.autoplatform.utils.QuitWebDriver;
+import com.gennlife.autoplatform.utils.RandomIdCardGenerator;
+import com.gennlife.autoplatform.utils.RandomValue;
 
 /**
  * @Description: 烟台环境，test4科室，添加单病种数据库中crf的患者信息

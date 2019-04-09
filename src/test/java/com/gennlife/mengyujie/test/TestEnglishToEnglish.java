@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.gennlife.crf.bean.Excel;
+import com.gennlife.autoplatform.bean.Excel;
 import com.gennlife.myujie.EnglishToEnglish;
 
 public class TestEnglishToEnglish {

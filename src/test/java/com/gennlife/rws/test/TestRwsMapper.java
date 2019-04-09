@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.gennlife.crf.bean.RwsBean;
-import com.gennlife.crf.mapper.RwsMapper;
+import com.gennlife.autoplatform.bean.RwsBean;
+import com.gennlife.autoplatform.mapper.RwsMapper;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

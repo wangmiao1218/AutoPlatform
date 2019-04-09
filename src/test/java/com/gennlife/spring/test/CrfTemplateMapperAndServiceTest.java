@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.gennlife.crf.bean.CrfTemplate;
-import com.gennlife.crf.mapper.CrfTemplateMapper;
-import com.gennlife.crf.service.CrfTemplateService;
+import com.gennlife.autoplatform.bean.CrfTemplate;
+import com.gennlife.autoplatform.mapper.CrfTemplateMapper;
+import com.gennlife.autoplatform.service.CrfTemplateService;
 
 /**
  * @Description: 测试数据库连接

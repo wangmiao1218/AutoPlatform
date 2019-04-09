@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 	
 	<!-- spring的自动扫描配置，会扫描使用@Service注解的类到IOC容器中 -->
-	<context:component-scan base-package="com.gennlife.crf.service"></context:component-scan>
+	<context:component-scan base-package="com.gennlife.autoplatform.service"></context:component-scan>
 	
 	<!-- 扫描配置文件 -->
 	<context:property-placeholder file-encoding="utf-8" location="classpath:db.properties" />
@@ -44,7 +44,7 @@
 		<!-- 分页插件结束 -->
 	</bean>
 	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.gennlife.crf.mapper" />
+		<property name="basePackage" value="com.gennlife.autoplatform.mapper" />
 	</bean>
 	
 	<!-- 配置事务 -->
@@ -86,7 +86,7 @@
 	
 	<!-- 开始整合定时任务 -->
 	<!-- 定义TriggerServiceBean(手动引入，不需要@service注解) -->
-    <bean id="triggerService" class="com.gennlife.crf.service.impl.TriggerServiceImpl"></bean>
+    <bean id="triggerService" class="com.gennlife.autoplatform.service.impl.TriggerServiceImpl"></bean>
     
 	<!-- start 整合quartz -->
   	<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">

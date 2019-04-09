@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.gennlife.crf.mapper.RwsMapper;
-import com.gennlife.crf.service.CreateRwsCalculateStabilityTaskService;
+import com.gennlife.autoplatform.mapper.RwsMapper;
+import com.gennlife.autoplatform.service.CreateRwsCalculateStabilityTaskService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring.xml")

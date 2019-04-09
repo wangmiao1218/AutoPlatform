@@ -2,9 +2,10 @@ package com.gennlife.myujie;
 
 import java.util.List;
 import java.util.Map;
-import com.gennlife.crf.bean.Excel;
-import com.gennlife.crf.utils.ExcelUtils;
-import com.gennlife.crf.utils.ListAndStringUtils;
+
+import com.gennlife.autoplatform.bean.Excel;
+import com.gennlife.autoplatform.utils.ExcelUtils;
+import com.gennlife.autoplatform.utils.ListAndStringUtils;
 
 /**
  * @Description:配置联动路径

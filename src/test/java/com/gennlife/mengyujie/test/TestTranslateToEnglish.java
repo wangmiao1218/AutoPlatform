@@ -5,11 +5,11 @@ import java.util.List;
 import org.junit.Test;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
-import com.gennlife.crf.bean.Excel;
-import com.gennlife.crf.utils.CreateWebDriver;
-import com.gennlife.crf.utils.ExcelUtils;
-import com.gennlife.crf.utils.ListAndStringUtils;
-import com.gennlife.crf.utils.QuitWebDriver;
+import com.gennlife.autoplatform.bean.Excel;
+import com.gennlife.autoplatform.utils.CreateWebDriver;
+import com.gennlife.autoplatform.utils.ExcelUtils;
+import com.gennlife.autoplatform.utils.ListAndStringUtils;
+import com.gennlife.autoplatform.utils.QuitWebDriver;
 import com.gennlife.myujie.TranslateToEnglish;
 
 public class TestTranslateToEnglish {

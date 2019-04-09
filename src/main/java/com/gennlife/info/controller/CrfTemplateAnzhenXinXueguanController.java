@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.gennlife.crf.bean.CrfTemplateAnzhenXinXueguan;
-import com.gennlife.crf.bean.CrfTemplateStructure;
-import com.gennlife.crf.service.CrfTemplateAnzhenXinXueguanService;
-import com.gennlife.crf.service.CrfTemplateStructureService;
-import com.gennlife.crf.utils.CreateWebDriver;
-import com.gennlife.crf.utils.ListAndStringUtils;
-import com.gennlife.crf.utils.LoginCrfOfAnzhen;
-import com.gennlife.crf.utils.QuitWebDriver;
+import com.gennlife.autoplatform.bean.CrfTemplateAnzhenXinXueguan;
+import com.gennlife.autoplatform.bean.CrfTemplateStructure;
+import com.gennlife.autoplatform.service.CrfTemplateAnzhenXinXueguanService;
+import com.gennlife.autoplatform.service.CrfTemplateStructureService;
+import com.gennlife.autoplatform.utils.CreateWebDriver;
+import com.gennlife.autoplatform.utils.ListAndStringUtils;
+import com.gennlife.autoplatform.utils.LoginCrfOfAnzhen;
+import com.gennlife.autoplatform.utils.QuitWebDriver;
 
 /**
  * @Description: 安贞环境，心血管单病种，相关controller

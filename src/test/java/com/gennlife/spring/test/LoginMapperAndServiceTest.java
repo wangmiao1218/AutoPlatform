@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.gennlife.crf.bean.SysOp;
-import com.gennlife.crf.mapper.SysOpMapper;
-import com.gennlife.crf.service.LoginService;
+import com.gennlife.autoplatform.bean.SysOp;
+import com.gennlife.autoplatform.mapper.SysOpMapper;
+import com.gennlife.autoplatform.service.LoginService;
 
 /**
  * @Description: 测试数据库连接

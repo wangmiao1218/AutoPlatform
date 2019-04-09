@@ -5,8 +5,8 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.gennlife.crf.bean.Excel;
-import com.gennlife.crf.utils.ExcelUtils;
+import com.gennlife.autoplatform.bean.Excel;
+import com.gennlife.autoplatform.utils.ExcelUtils;
 import com.gennlife.myujie.ConfiguredRequiredPath;
 
 public class TestConfiguredRequiredPath {
