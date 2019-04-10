@@ -49,6 +49,7 @@ function initGrid(){
         }
     });
     // width确定的宽度
+    
     columns = [
             {
                 text     : '角色名称',
